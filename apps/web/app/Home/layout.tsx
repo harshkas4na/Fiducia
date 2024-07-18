@@ -20,7 +20,7 @@ export default function HomeLayout({
         <Spline scene="https://prod.spline.design/Jib1Qow0Z1vVdo9F/scene.splinecode" />
       </div>
       {/* Sidebar */}
-      <div className="w-64 bg-gray-800 bg-opacity-80 p-5 z-10 relative">
+      <div className="w-64 bg-gray-800 bg-opacity-30 p-5 z-10 relative">
         <div className="flex items-center mb-10">
           <FaUser className="text-2xl mr-3" />
           <span className="text-lg font-semibold">{username}</span>

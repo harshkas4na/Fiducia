@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col h-full">
-      <h1 className="text-3xl font-bold mb-8 text-white">
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-white">
         Welcome, {username}
       </h1>
 
@@ -36,7 +36,7 @@ export default function HomePage() {
           <div className="mb-8">{/* <Minion3D /> */}</div>
 
           <div className="bg-gray-900 bg-opacity-0 p-6 rounded-lg backdrop-blur-sm">
-            <h2 className="text-xl font-semibold mb-4 mt-16">Price Chart</h2>
+            <h2 className="text-xl font-semibold mb-4 mt-8">Price Chart</h2>
             <CryptoChart />
             <p className="text-2xl font-bold">
               <FaEthereum className="inline mr-2" />${ethPrice.toFixed(2)}
