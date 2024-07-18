@@ -36,7 +36,6 @@ const chartOptions: ChartOptions<"line"> = {
       type: "time",
       time: {
         unit: "hour",
-        stepSize: 6,
         displayFormats: {
           hour: "HH:mm",
         },
@@ -147,6 +146,7 @@ const CryptoChart: React.FC = () => {
     const interval = setInterval(fetchData, 60000); // Update every minute
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (error) {
