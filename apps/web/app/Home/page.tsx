@@ -106,8 +106,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="w-80 bg-gray-800 bg-opacity-20 p-6 rounded-xl shadow-lg backdrop-blur-sm">
-            <h2 className="text-2xl font-semibold mb-6 text-center text-blue-300">
+          <div className="w-80 bg-gray-1000 bg-opacity-5 p-6 rounded-xl shadow-lg backdrop-blur-sm">
+            <h2 className="text-2xl font-semibold mt-6 mb-12 text-center text-blue-300">
               Account Overview
             </h2>
             <div className="space-y-6">
