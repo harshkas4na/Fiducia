@@ -97,7 +97,7 @@ export default function PoliciesPage() {
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="backdrop-blur-md bg-gray-800 mr-6 bg-opacity-20 p-5 rounded-xl shadow-lg relative overflow-hidden">
+          <div className="backdrop-blur-md bg-gray-800 mr-6 bg-opacity-20 p-5 rounded-3xl shadow-lg relative overflow-hidden">
             <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>
             <div className="relative z-10">
               <h2 className="text-xl font-semibold mb-4 text-blue-300 text-center border-b border-blue-300 pb-2">
@@ -149,7 +149,9 @@ export default function PoliciesPage() {
                   onClick={handleCreatePolicy}
                   className="w-full bg-transparent border-2 border-blue-400 text-blue-400 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm relative overflow-hidden group"
                 >
-                  <span className="relative z-10">Create Policy</span>
+                  <span className="relative z-10 text-slate-50">
+                    Create Policy
+                  </span>
                   <div className="absolute inset-0 bg-blue-400 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                   <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(59,130,246,0.5)] group-hover:shadow-[inset_0_0_15px_rgba(59,130,246,0.7)] transition-shadow duration-300"></div>
                 </button>
@@ -157,7 +159,7 @@ export default function PoliciesPage() {
             </div>
           </div>
 
-          <div className="backdrop-blur-md bg-gray-800 bg-opacity-10 ml-8 p-5 rounded-xl shadow-lg relative overflow-hidden">
+          <div className="backdrop-blur-md bg-gray-800 bg-opacity-10 ml-8 p-5 rounded-3xl shadow-lg relative overflow-hidden">
             <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>
             <div className="relative z-10">
               <h2 className="text-xl font-semibold mb-4 text-blue-300 text-center border border-blue-300 rounded-lg py-2">
@@ -189,7 +191,7 @@ export default function PoliciesPage() {
           </div>
         </div>
 
-        <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 mt-18 p-5 rounded-xl shadow-lg relative overflow-hidden">
+        <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 mt-18 p-5 rounded-3xl shadow-lg relative overflow-hidden">
           <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>
           <div className="relative z-10">
             <h2 className="text-xl font-semibold mb-4 text-blue-300 text-center border-b border-blue-300 pb-2">

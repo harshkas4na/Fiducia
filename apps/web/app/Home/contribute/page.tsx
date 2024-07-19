@@ -92,9 +92,13 @@ export default function ContributePage() {
               <div className="flex justify-center">
                 <button
                   onClick={handleContribute}
-                  className="w-32 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+                  className="w-32 bg-transparent border-2 border-blue-400 text-blue-400 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm relative overflow-hidden group"
                 >
-                  Contribute
+                  <span className="relative z-10 text-slate-50">
+                    Contribute
+                  </span>
+                  <div className="absolute inset-0 bg-blue-400 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(59,130,246,0.5)] group-hover:shadow-[inset_0_0_15px_rgba(59,130,246,0.7)] transition-shadow duration-300"></div>
                 </button>
               </div>
             </div>
