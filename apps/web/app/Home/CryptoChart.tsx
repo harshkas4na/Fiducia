@@ -156,7 +156,7 @@ const CryptoChart: React.FC = () => {
   return (
     <div
       style={{
-        background: "rgba(0, 0, 0, 0.5)",
+        background: "rgba(0, 0, 0, 0.3)",
         padding: "20px",
         borderRadius: "10px",
       }}
