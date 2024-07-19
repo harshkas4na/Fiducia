@@ -41,7 +41,7 @@ const Home: React.FC = () => {
         onClick={connectWallet}
         className="absolute top-4 right-20 z-20 bg-transparent border-2 border-orange-400 text-orange-400 font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 text-sm overflow-hidden group"
       >
-        <span className="relative z-10">
+        <span className="relative z-10 text-fuchsia-50">
           {isConnected ? "Wallet Connected" : "Connect Wallet"}
         </span>
         <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-300 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
