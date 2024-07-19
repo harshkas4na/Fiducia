@@ -39,15 +39,13 @@ const Home: React.FC = () => {
 
       <button
         onClick={connectWallet}
-        className="absolute top-4 right-20 z-20 bg-gradient-to-r from-orange-600 to-orange-300 text-white font-bold py-2 px-1 rounded-xl transform transition duration-300 ease-in-out hover:scale-105 hover:-translate-y-1"
-        style={{
-          animation: "shimmer 3s linear infinite",
-          backgroundSize: "200% 200%",
-          boxShadow: "0 0 5px #763fff, 0 0 10px #ffffd4",
-          textShadow: "0 0 1px #fff, 0 0 1px #fff",
-        }}
+        className="absolute top-4 right-20 z-20 bg-transparent border-2 border-orange-400 text-orange-400 font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 text-sm overflow-hidden group"
       >
-        {isConnected ? "Wallet Connected" : "Connect Wallet"}
+        <span className="relative z-10">
+          {isConnected ? "Wallet Connected" : "Connect Wallet"}
+        </span>
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-300 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(251,146,60,0.5)] group-hover:shadow-[inset_0_0_15px_rgba(251,146,60,0.7)] transition-shadow duration-300"></div>
       </button>
 
       <footer className="absolute bottom-0 w-full p-4 text-center text-gray-200 bg-gray-800 bg-opacity-10">
