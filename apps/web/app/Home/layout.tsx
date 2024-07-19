@@ -21,10 +21,10 @@ export default function HomeLayout({
       </div>
       {/* Sidebar */}
       <div className="w-64 bg-gray-600 bg-opacity-10 p-5 relative">
-        <div className="flex items-center mb-10">
+        <Link href="/Home" className="flex cursor-pointer items-center mb-10">
           <FaUser className="text-2xl mr-3" />
           <span className="text-lg font-semibold">{username}</span>
-        </div>
+        </Link>
         <nav>
           <Link
             href={hasContributed ? "/home/shareholdings" : "/Home/contribute"}

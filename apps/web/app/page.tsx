@@ -3,13 +3,21 @@
 import { useState } from "react";
 import Head from "next/head";
 import Spline from "@splinetool/react-spline/next";
+import NameModal from "./components/NameModal";
+import { useUser } from "./context/UserContext";
 
 const Home: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { userName } = useUser();
 
   const connectWallet = async (): Promise<void> => {
     // Implement your wallet connection logic here
     setIsConnected(true);
+  };
+
+  const handleEngage = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -38,8 +46,8 @@ const Home: React.FC = () => {
       </main>
 
       <button
-        onClick={connectWallet}
-        className="absolute top-4 right-20 z-20 bg-gradient-to-r from-orange-600 to-orange-300 text-white font-bold py-2 px-1 rounded-xl transform transition duration-300 ease-in-out hover:scale-105 hover:-translate-y-1"
+        onClick={isConnected ? handleEngage : connectWallet}
+        className="absolute top-4 right-20 z-20 bg-gradient-to-r from-orange-600 to-orange-300 text-white font-bold py-2 px-4 rounded-xl transform transition duration-300 ease-in-out hover:scale-105 hover:-translate-y-1"
         style={{
           animation: "shimmer 3s linear infinite",
           backgroundSize: "200% 200%",
@@ -47,12 +55,14 @@ const Home: React.FC = () => {
           textShadow: "0 0 1px #fff, 0 0 1px #fff",
         }}
       >
-        {isConnected ? "Wallet Connected" : "Connect Wallet"}
+        {isConnected ? (userName || "Engage") : "Connect Wallet"}
       </button>
 
       <footer className="absolute bottom-0 w-full p-4 text-center text-gray-200 bg-gray-800 bg-opacity-10">
         <p>&copy; 2024 Fiducia. All rights reserved.</p>
       </footer>
+
+      <NameModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
