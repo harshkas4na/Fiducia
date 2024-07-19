@@ -90,7 +90,7 @@ export default function PoliciesPage() {
           scrollbar-width: none;
         }
       `}</style>
-      <div className="policies-bg absolute -inset-5 bg-gradient-to-br from-blue-900 to-black opacity-50 rounded-full"></div>
+      <div className="policies-bg absolute -inset-5 bg-gradient-to-br from-blue-900 to-black opacity-50 rounded-ss-full rounded-ee-full"></div>
       <div className="relative z-10 flex flex-col max-w-5xl mx-auto">
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Crypto Insurance Policies
@@ -106,20 +106,54 @@ export default function PoliciesPage() {
               <select
                 value={selectedAsset}
                 onChange={(e) => setSelectedAsset(e.target.value)}
-                className="w-full bg-gray-700 bg-opacity-20 text-white px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                className="w-full bg-gray-800 bg-opacity-50 text-slate-300 px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.5rem center",
+                  backgroundSize: "1.5em 1.5em",
+                  paddingRight: "2.5rem",
+                }}
               >
-                <option value="">Select Asset</option>
-                <option value="ETH">Ethereum</option>
-                <option value="BTC">Bitcoin</option>
+                <option
+                  value=""
+                  disabled
+                  className="bg-gray-800 text-slate-300"
+                >
+                  Select Asset
+                </option>
+                <option value="ETH" className="bg-gray-800 text-slate-300">
+                  Ethereum
+                </option>
+                <option value="BTC" className="bg-gray-800 text-slate-300">
+                  Bitcoin
+                </option>
               </select>
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full bg-gray-700 bg-opacity-20 text-white px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                className="w-full bg-gray-800 bg-opacity-50 text-slate-300 px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.5rem center",
+                  backgroundSize: "1.5em 1.5em",
+                  paddingRight: "2.5rem",
+                }}
               >
                 <option value="">Select Insurance Type</option>
                 {insuranceTypes.map((type) => (
-                  <option key={type.id} value={type.id}>
+                  <option
+                    key={type.id}
+                    value={type.id}
+                    className="bg-gray-800 text-slate-300"
+                  >
                     {type.name}
                   </option>
                 ))}
@@ -165,7 +199,7 @@ export default function PoliciesPage() {
               <h2 className="text-xl font-semibold mb-4 text-blue-300 text-center border border-blue-300 rounded-lg py-2">
                 Insurance Types
               </h2>
-              <ul className="space-y-3 text-gray-300 text-sm">
+              <ul className="space-y-3 text-gray-400 text-sm">
                 {insuranceTypes.map((type) => (
                   <li key={type.id} className="flex items-start">
                     <span
