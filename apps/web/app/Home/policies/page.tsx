@@ -202,7 +202,7 @@ export default function PoliciesPage() {
                 {activePolicies.map((policy) => (
                   <li
                     key={policy.id}
-                    className="bg-gray-700 bg-opacity-50 p-3 rounded-lg text-sm"
+                    className="bg-gray-700 bg-opacity-10 p-3 rounded-lg text-sm"
                   >
                     <p className="font-semibold text-blue-300">
                       {policy.asset} -{" "}
