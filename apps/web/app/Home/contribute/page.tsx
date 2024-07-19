@@ -81,7 +81,7 @@ export default function ContributePage() {
                   placeholder="Amount in ETH"
                   className="flex-grow bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                 />
-                <span className="bg-gray-600 bg-opacity-50 px-4 py-2 rounded-r-lg text-purple-300">
+                <span className="bg-gray-600 bg-opacity-50 px-4 py-2 rounded-r-lg text-blue-400">
                   <FaEthereum className="inline mr-2" />
                   ETH
                 </span>
