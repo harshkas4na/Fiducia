@@ -13,8 +13,8 @@ declare global {
 
 const ConnectWallet: React.FC= () => {
   
-  const {isConnected,setIsConnected,userName,setUserName}= useUser();
-  const [account, setAccount] = useState<string | null>(null)
+  const {isConnected,setIsConnected,userName,setUserName,account,setAccount}= useUser();
+  
 
   useEffect(() => {
     const checkIfWalletIsConnected = async () => {
