@@ -1,31 +1,21 @@
-"use client";
 
-import { useState } from "react";
 import Head from "next/head";
 import Spline from "@splinetool/react-spline/next";
-import NameModal from "./components/NameModal";
-import { useUser } from "./context/UserContext";
+import ConnectWallet from "./components/connectWallet";
+
 
 const Home: React.FC = () => {
-  const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { userName } = useUser();
+  
+  
 
-  const connectWallet = async (): Promise<void> => {
-    // Implement your wallet connection logic here
-    setIsConnected(true);
-  };
-
-  const handleEngage = () => {
-    setIsModalOpen(true);
-  };
+  
 
   return (
     <div className="h-screen bg-gray-900 flex flex-col text-white overflow-hidden relative">
       <Head>
-        <title>Fiducia - Crypto Insurance DApp</title>
-        <link rel="icon" href="/favicon.ico" />
-        <style>{`
+        
+        <style>{
+          `
           ::-webkit-scrollbar {
             display: none;
           }
@@ -38,31 +28,19 @@ const Home: React.FC = () => {
             50% { background-position: 100% 50% }
             100% { background-position: 0% 50% }
           }
-        `}</style>
+          `
+        }</style>
       </Head>
 
       <main className="flex-grow flex items-center justify-center w-full">
         <Spline scene="https://prod.spline.design/fInhCGXNhH2TQe16/scene.splinecode" />
       </main>
 
-      <button
-        onClick={isConnected ? handleEngage : connectWallet}
-        className="absolute top-4 right-20 z-20 bg-gradient-to-r from-orange-600 to-orange-300 text-white font-bold py-2 px-4 rounded-xl transform transition duration-300 ease-in-out hover:scale-105 hover:-translate-y-1"
-        style={{
-          animation: "shimmer 3s linear infinite",
-          backgroundSize: "200% 200%",
-          boxShadow: "0 0 5px #763fff, 0 0 10px #ffffd4",
-          textShadow: "0 0 1px #fff, 0 0 1px #fff",
-        }}
-      >
-        {isConnected ? (userName || "Engage") : "Connect Wallet"}
-      </button>
+      <ConnectWallet/>
 
       <footer className="absolute bottom-0 w-full p-4 text-center text-gray-200 bg-gray-800 bg-opacity-10">
         <p>&copy; 2024 Fiducia. All rights reserved.</p>
       </footer>
-
-      <NameModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
