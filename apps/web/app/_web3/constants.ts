@@ -1,0 +1,2 @@
+export const MultiPartyWallet_ADDRESS="0xD8a604CcBc690DeBa9535c348B267b661315d50b";
+export const CryptoInsurance_ADDRESS="0x7f39c581f595b53c5cb19b5a8b2f2e8b3d0e1b4c";
