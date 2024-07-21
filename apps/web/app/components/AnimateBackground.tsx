@@ -22,7 +22,7 @@ const AnimateBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="contribute-bg absolute -inset-5 bg-gradient-to-br from-blue-900 to-black opacity-50 rounded-full"></div>
+    <div className="contribute-bg absolute -inset-5 bg-gradient-to-br from-blue-900 to-black opacity-15 rounded-full"></div>
   );
 };
 

@@ -1,13 +1,11 @@
 // components/Timer.tsx
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { useContract } from '../context/ContractContext';
-import Web3 from 'web3';
-
+import React, { useEffect, useState } from "react";
+import { useContract } from "../context/ContractContext";
+import Web3 from "web3";
 
 const Timer: React.FC = () => {
-  
   const [closureTime, setClosureTime] = useState<number>(0);
   const { WalletContract } = useContract();
   useEffect(() => {
@@ -19,7 +17,6 @@ const Timer: React.FC = () => {
 
       try {
         const web3 = new Web3(window.ethereum);
-        
 
         const closureTime = await WalletContract.methods.closureTime().call();
         setClosureTime(Number(closureTime));
@@ -62,13 +59,14 @@ const Timer: React.FC = () => {
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-
   return (
-    <div className="backdrop-blur-md bg-gray-800 top-5 bg-opacity-20 p-6 rounded-3xl shadow-lg w-full lg:w-1/2 relative overflow-hidden mt-6">
+    <div className="backdrop-blur-md bg-gray-800 top-5 bg-opacity-20 p-8 ml-16  rounded-3xl shadow-lg lg:w-2/5 relative overflow-hidden  mt-6">
       <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>
       <div className="relative z-10">
-        <h2 className="text-2xl font-bold text-white text-center mb-4">Time Left</h2>
-        <div className="flex justify-center items-center text-white">
+        <h2 className="text-2xl font-bold text-purple-400 text-center mb-4">
+          Time Left
+        </h2>
+        <div className="flex justify-center items-center text-green-300">
           <div className="p-2 text-center">
             <span className="text-2xl font-semibold">{timeLeft.days}</span>
             <span className="block text-sm">days</span>
@@ -85,6 +83,16 @@ const Timer: React.FC = () => {
             <span className="text-2xl font-semibold">{timeLeft.seconds}</span>
             <span className="block text-sm">seconds</span>
           </div>
+        </div>
+        <div className="mt-6 flex justify-center">
+          <button
+            // onClick={handleCloseWallet}
+            className="w-40 bg-transparent border-2 border-purple-400 text-purple-400 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm relative overflow-hidden group"
+          >
+            <span className="relative z-10 text-slate-50">Close Wallet</span>
+            <div className="absolute inset-0 bg-purple-800 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(168,85,247,0.5)] group-hover:shadow-[inset_0_0_15px_rgba(168,85,247,0.7)] transition-shadow duration-300"></div>
+          </button>
         </div>
       </div>
     </div>
