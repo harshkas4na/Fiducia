@@ -34,19 +34,11 @@ export default function ShareholdingsPage() {
         </h1>
 
         <div className="flex-grow flex flex-col lg:flex-row justify-start items-start gap-6 gap-x-14 mb-8">
-          <ContributionsSection
-            
-          />
-          <WalletOverviewSection
-            
-            memeCoins={memeCoins}
-          />
+          <ContributionsSection />
+          <WalletOverviewSection memeCoins={memeCoins} />
         </div>
 
-        <WithdrawFundsSection
-          memeCoins={memeCoins}
-          
-        />
+        <WithdrawFundsSection memeCoins={memeCoins} />
       </div>
     </div>
   );
