@@ -60,7 +60,7 @@ const Timer: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   return (
-    <div className="backdrop-blur-md bg-gray-800 top-5 bg-opacity-20 p-8 ml-16  rounded-3xl shadow-lg lg:w-2/5 relative overflow-hidden  mt-6">
+    <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 p-8 ml-16  rounded-3xl shadow-lg lg:w-2/5 relative overflow-hidden">
       <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>
       <div className="relative z-10">
         <h2 className="text-2xl font-bold text-purple-400 text-center mb-4">
