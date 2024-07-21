@@ -3,11 +3,10 @@ import AnimateBackground from '../../components/AnimateBackground';
 import CreatePolicyForm from '../../components/CreatePolicyForm';
 import InsuranceTypes from '../../components/InsuranceTypes';
 import ActivePolicies from '../../components/ActivePolicies';
+import TriggerCheckPrice from '@/app/components/TriggerCheckPrice';
 
 export default function PoliciesPage() {
-  const handleCreatePolicy = (policy: any) => {
-    console.log("Creating policy:", policy);
-  };
+  
 
   return (
     <div className="min-h-screen w-full relative p-6 overflow-hidden">
@@ -25,8 +24,10 @@ export default function PoliciesPage() {
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Crypto Insurance Policies
         </h1>
+        <TriggerCheckPrice/>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <CreatePolicyForm onCreatePolicy={handleCreatePolicy} />
+          <CreatePolicyForm  />
           <InsuranceTypes />
         </div>
         <ActivePolicies />

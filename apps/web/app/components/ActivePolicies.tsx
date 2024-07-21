@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { FaShieldAlt, FaCoins, FaChartLine, FaEthereum } from "react-icons/fa";
+import { useContract } from "../context/ContractContext";
+import Web3 from 'web3';
 
 interface Policy {
   id: number;
@@ -13,44 +15,63 @@ interface Policy {
 }
 
 const ActivePolicies: React.FC = () => {
+  const { InsuranceContract } = useContract();
   const [activePolicies, setActivePolicies] = useState<Policy[]>([]);
 
   useEffect(() => {
-    setActivePolicies([
-      {
-        id: 1,
-        asset: "ETH",
-        type: "LOAN",
-        coverage: "5",
-        triggerPrice: "2000",
-        endTime: "2024-08-01",
-      },
-      {
-        id: 2,
-        asset: "BTC",
-        type: "SUDDEN_DROP",
-        coverage: "0.1",
-        triggerPrice: "30000",
-        endTime: "2024-09-15",
-      },
-    ]);
-  }, []);
+    const fetchPolicies = async () => {
+      if (!InsuranceContract || !window.ethereum) return;
+
+      const web3 = new Web3(window.ethereum);
+      const accounts = await web3.eth.getAccounts();
+      const userAddress = accounts[0];
+
+      try {
+        const supportedAssetsList = await InsuranceContract.methods.supportedAssetsList().call();
+        let policies: Policy[] = [];
+
+        for (let asset of supportedAssetsList) {
+          for (let i = 0; i < 3; i++) { // For each insurance type
+            const policy = await InsuranceContract.methods.policies(asset, userAddress).call();
+            if (policy.active) {
+              policies.push({
+                id: policies.length + 1,
+                asset: await getAssetSymbol(asset),
+                type: InsuranceType[i],
+                coverage: web3.utils.fromWei(policy.coverageAmount, 'ether'),
+                triggerPrice: web3.utils.fromWei(policy.triggerPrice, 'ether'),
+                endTime: new Date(policy.endTime * 1000).toISOString().split('T')[0]
+              });
+            }
+          }
+        }
+
+        setActivePolicies(policies);
+      } catch (error) {
+        console.error("Error fetching policies:", error);
+      }
+    };
+
+    fetchPolicies();
+  }, [InsuranceContract]);
+
+  const getAssetSymbol = async (assetAddress: string) => {
+    // This is a placeholder. You might want to implement a proper mapping or fetch from contract
+    const assetMap: {[key: string]: string} = {
+      "0x1234...": "ETH",
+      "0x5678...": "BTC",
+      // Add more mappings as needed
+    };
+    return assetMap[assetAddress] || "Unknown";
+  };
+
+  const InsuranceType = ["LOAN", "THRESHOLD", "SUDDEN_DROP"];
 
   const insuranceTypes = [
-  { id: "LOAN", name: "Loan Insurance", icon: FaCoins, color: "text-blue-400" },
-  {
-    id: "THRESHOLD",
-    name: "Threshold Insurance",
-    icon: FaShieldAlt,
-    color: "text-green-400",
-  },
-  {
-    id: "SUDDEN_DROP",
-    name: "Sudden Drop Insurance",
-    icon: FaChartLine,
-    color: "text-yellow-400",
-  },
-];
+    { id: "LOAN", name: "Loan Insurance", icon: FaCoins, color: "text-blue-400" },
+    { id: "THRESHOLD", name: "Threshold Insurance", icon: FaShieldAlt, color: "text-green-400" },
+    { id: "SUDDEN_DROP", name: "Sudden Drop Insurance", icon: FaChartLine, color: "text-yellow-400" },
+  ];
 
   return (
     <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 mt-18 p-5 rounded-3xl shadow-lg relative overflow-hidden">

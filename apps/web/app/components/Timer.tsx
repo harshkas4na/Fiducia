@@ -1,11 +1,44 @@
 // components/Timer.tsx
+"use client";
+
 import React, { useEffect, useState } from 'react';
+import { useContract } from '../context/ContractContext';
+import Web3 from 'web3';
 
-interface TimerProps {
-  closureTime: number;
-}
 
-const Timer: React.FC<TimerProps> = ({ closureTime }) => {
+const Timer: React.FC = () => {
+  
+  const [closureTime, setClosureTime] = useState<number>(0);
+  const { WalletContract } = useContract();
+  useEffect(() => {
+    const fetchClosureTime = async () => {
+      if (typeof window.ethereum === "undefined") {
+        console.error("Ethereum provider not found.");
+        return;
+      }
+
+      try {
+        const web3 = new Web3(window.ethereum);
+        
+
+        const closureTime = await WalletContract.methods.closureTime().call();
+        setClosureTime(Number(closureTime));
+      } catch (error) {
+        console.error("Error fetching closure time from contract:", error);
+      }
+    };
+
+    fetchClosureTime();
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const calculateTimeLeft = () => {
     const difference = closureTime * 1000 - new Date().getTime();
     let timeLeft = {
@@ -29,13 +62,6 @@ const Timer: React.FC<TimerProps> = ({ closureTime }) => {
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <div className="backdrop-blur-md bg-gray-800 top-5 bg-opacity-20 p-6 rounded-3xl shadow-lg w-full lg:w-1/2 relative overflow-hidden mt-6">

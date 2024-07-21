@@ -24,11 +24,7 @@ export default function ShareholdingsPage() {
     setMemeCoins("1000");
   }, []);
 
-  const handleWithdraw = async () => {
-    // Implement withdrawal logic here
-    console.log("Withdrawing unclaimed funds");
-  };
-
+  
   return (
     <div className="h-full w-full relative flex flex-col">
       <ShareholdingsBackground />

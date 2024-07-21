@@ -1,23 +1,8 @@
-export const MultiPartyWallet_ABI =[
+export const CryptoInsurance_ABI =[
 	{
 		"inputs": [],
-		"name": "ContributionTooLowError",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "InvalidInitialization",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "NotClosedError",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "NotInitializing",
-		"type": "error"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"inputs": [
@@ -42,21 +27,28 @@ export const MultiPartyWallet_ABI =[
 		"type": "error"
 	},
 	{
-		"inputs": [],
-		"name": "WalletClosedError",
-		"type": "error"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "newClosureTime",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "ClosureTimeUpdated",
+		"name": "ClaimFiled",
 		"type": "event"
 	},
 	{
@@ -65,103 +57,13 @@ export const MultiPartyWallet_ABI =[
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "contributor",
+				"name": "holder",
 				"type": "address"
 			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "ContributionReceived",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "FallbackCalled",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "FundsDistributed",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "FundsDistributedDirectly",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "FundsReceived",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint64",
-				"name": "version",
-				"type": "uint64"
-			}
-		],
-		"name": "Initialized",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "shareholder",
+				"name": "asset",
 				"type": "address"
 			},
 			{
@@ -171,20 +73,7 @@ export const MultiPartyWallet_ABI =[
 				"type": "uint256"
 			}
 		],
-		"name": "MemeCoinsDistributed",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "newMinimum",
-				"type": "uint256"
-			}
-		],
-		"name": "MinimumContributionUpdated",
+		"name": "ClaimPaid",
 		"type": "event"
 	},
 	{
@@ -210,13 +99,31 @@ export const MultiPartyWallet_ABI =[
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "address",
-				"name": "account",
+				"name": "holder",
 				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "coverageAmount",
+				"type": "uint256"
 			}
 		],
-		"name": "Paused",
+		"name": "PolicyCreated",
 		"type": "event"
 	},
 	{
@@ -225,17 +132,23 @@ export const MultiPartyWallet_ABI =[
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "shareholder",
+				"name": "asset",
 				"type": "address"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "share",
+				"name": "oldPrice",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newPrice",
 				"type": "uint256"
 			}
 		],
-		"name": "ShareCalculated",
+		"name": "PriceChanged",
 		"type": "event"
 	},
 	{
@@ -244,57 +157,16 @@ export const MultiPartyWallet_ABI =[
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "shareholder",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amountWithdrawn",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "feesPaid",
-				"type": "uint256"
-			}
-		],
-		"name": "ShareholderLeft",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [],
-		"name": "SharesUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "account",
+				"name": "caller",
 				"type": "address"
 			}
 		],
-		"name": "Unpaused",
+		"name": "TriggerPriceCheck",
 		"type": "event"
 	},
 	{
-		"anonymous": false,
 		"inputs": [],
-		"name": "WalletClosed",
-		"type": "event"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "fallback"
-	},
-	{
-		"inputs": [],
-		"name": "additionalFunds",
+		"name": "LOAN_PREMIUM_RATE",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -307,14 +179,7 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "closeWallet",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "closureTime",
+		"name": "POLICY_DURATION",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -327,14 +192,7 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "contribute",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "creationTime",
+		"name": "SUDDEN_DROP_PREMIUM_RATE",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -347,66 +205,103 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "distributeAllFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "SUDDEN_DROP_THRESHOLD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "SUDDEN_DROP_WINDOW",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "THRESHOLD_PREMIUM_RATE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_minimumContribution",
+				"name": "",
 				"type": "uint256"
-			},
+			}
+		],
+		"name": "activePolicyHolders",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "_closureTime",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "_memeCoinAddress",
+				"name": "priceFeed",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_memeCoinsPerEth",
+				"name": "maxCoverage",
 				"type": "uint256"
 			}
 		],
-		"name": "initialize",
+		"name": "addSupportedAsset",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "leaveShareholding",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "memeCoin",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "contract IERC20",
+				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "memeCoinsPerEth",
+		"name": "assetPrices",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "lastPrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lastUpdateTimestamp",
 				"type": "uint256"
 			}
 		],
@@ -415,15 +310,86 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "minimumContribution",
+		"name": "checkAllPriceChanges",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			}
+		],
+		"name": "checkPriceChange",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claimReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "claims",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "amount",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "processed",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "coverageAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "triggerPrice",
+				"type": "uint256"
+			}
+		],
+		"name": "createPolicy",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -440,20 +406,88 @@ export const MultiPartyWallet_ABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "pause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "policies",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "coverageAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "premium",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "endTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "triggerPrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "purchasePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "active",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "paused",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "policyIndex",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -469,61 +503,41 @@ export const MultiPartyWallet_ABI =[
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "rewards",
+		"outputs": [
+			{
 				"internalType": "uint256",
-				"name": "_newClosureTime",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "setClosureTime",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_memeCoinAddress",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "supportedAssets",
+		"outputs": [
+			{
+				"internalType": "contract AggregatorV3Interface",
+				"name": "priceFeed",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_memeCoinsPerEth",
+				"name": "maxCoverage",
 				"type": "uint256"
-			}
-		],
-		"name": "setMemeCoin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_newMinimum",
-				"type": "uint256"
-			}
-		],
-		"name": "setMinimumContribution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "shareholderActive",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -537,49 +551,12 @@ export const MultiPartyWallet_ABI =[
 				"type": "uint256"
 			}
 		],
-		"name": "shareholderAddresses",
+		"name": "supportedAssetsList",
 		"outputs": [
 			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "shareholders",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "contribution",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "share",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalContributions",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -600,29 +577,9 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "unpause",
+		"name": "triggerPriceCheck",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "updateShares",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "walletClosed",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
