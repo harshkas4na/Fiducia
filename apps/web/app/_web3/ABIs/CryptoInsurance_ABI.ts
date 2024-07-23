@@ -153,20 +153,26 @@ export const CryptoInsurance_ABI =[
 	},
 	{
 		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "caller",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "TriggerPriceCheck",
 		"type": "event"
 	},
 	{
 		"inputs": [],
 		"name": "LOAN_PREMIUM_RATE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "LastTriggerTimestamp",
 		"outputs": [
 			{
 				"internalType": "uint256",

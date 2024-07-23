@@ -4,10 +4,38 @@
 import React, { useEffect, useState } from "react";
 import { useContract } from "../context/ContractContext";
 import Web3 from "web3";
+import { useUser } from "../context/UserContext";
 
 const Timer: React.FC = () => {
   const [closureTime, setClosureTime] = useState<number>(0);
   const { WalletContract } = useContract();
+  const { account } = useUser();
+
+  const handleCloseWallet = async () => {
+    if (typeof window.ethereum === "undefined") {
+      console.error("Ethereum provider not found.");
+      return;
+    }
+
+    try {
+
+      const web3 = new Web3(window.ethereum);
+
+      const tx = await WalletContract.methods.closeWallet().send({
+        from: account,
+        
+      });
+
+      // Wait for the transaction receipt
+      await web3.eth.getTransactionReceipt(tx.transactionHash);
+      
+      
+    } catch (error) {
+      console.error("Error closing wallet:", error);
+    }
+  };
+
+
   useEffect(() => {
     const fetchClosureTime = async () => {
       if (typeof window.ethereum === "undefined") {
@@ -26,7 +54,7 @@ const Timer: React.FC = () => {
     };
 
     fetchClosureTime();
-  }, []);
+  }, [ WalletContract]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,7 +114,7 @@ const Timer: React.FC = () => {
         </div>
         <div className="mt-6 flex justify-center">
           <button
-            // onClick={handleCloseWallet}
+            onClick={handleCloseWallet}
             className="w-40 bg-transparent border-2 border-purple-400 text-purple-400 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm relative overflow-hidden group"
           >
             <span className="relative z-10 text-slate-50">Close Wallet</span>

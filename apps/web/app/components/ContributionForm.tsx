@@ -16,26 +16,11 @@ interface ContributionFormProps {
 const ContributionForm: React.FC<ContributionFormProps> = ({
   minimumContribution,
 }) => {
-  const { WalletContract, setWalletContract } = useContract();
+  const { WalletContract } = useContract();
   const { account } = useUser();
   const [contribution, setContribution] = useState("");
 
-  useEffect(() => {
-    const ConnectContract = async () => {
-      // Create a new instance of Web3
-      const web3 = new Web3(window.ethereum);
-      // Create a new contract instance
-      const contract = new web3.eth.Contract(
-        MultiPartyWallet_ABI as any,
-        MultiPartyWallet_ADDRESS
-      );
-      setWalletContract(contract);
-    };
-
-    return () => {
-      ConnectContract();
-    };
-  }, [account]);
+  
 
   const handleContribute = async () => {
     if (!contribution || parseFloat(contribution) <= 0) {

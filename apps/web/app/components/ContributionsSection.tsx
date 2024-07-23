@@ -1,3 +1,4 @@
+"use client";
 // components/ContributionsSection.tsx
 
 import {
@@ -16,11 +17,12 @@ import { useUser } from "../context/UserContext";
   const ContributionsSection: React.FC = () => {
 
     const {WalletContract}=useContract();
-const {account}=useUser();
+    const {account}=useUser();
     const [userContribution, setUserContribution] = useState<string>("");
     const [userShare, setUserShare] = useState<string>("");
     const [totalContributions, setTotalContributions] = useState<string>("");
-  
+    console.log("account",account);
+    console.log("WalletContract",WalletContract);
     useEffect(() => {
       const fetchContractData = async () => {
         if (typeof window.ethereum === "undefined") {
@@ -31,10 +33,9 @@ const {account}=useUser();
         try {
           const web3 = new Web3(window.ethereum);
 
-          
-  
           // Fetch total contributions
           const totalContributionsInWei:Numbers = await WalletContract.methods.totalContributions().call();
+         
           setTotalContributions(web3.utils.fromWei(totalContributionsInWei, "ether"));
   
           // Fetch user contribution and share
@@ -48,7 +49,7 @@ const {account}=useUser();
       };
   
       fetchContractData();
-    }, []);
+    }, [account, WalletContract]);
   
     return (
       <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 p-6 ml-2 rounded-3xl shadow-lg w-full lg:w-1/2 relative overflow-hidden">

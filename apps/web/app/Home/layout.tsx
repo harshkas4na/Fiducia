@@ -10,7 +10,7 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   const username="John Doe"; // Replace with actual user data
-  const hasContributed=false; // Replace with actual user status
+  
 
   return (
     <div className="flex h-screen bg-gray-900 text-white relative">
@@ -18,7 +18,7 @@ export default function HomeLayout({
         <Spline scene="https://prod.spline.design/Jib1Qow0Z1vVdo9F/scene.splinecode" />
       </div>
       {/* Sidebar */}
-      <Sidebar username={username} hasContributed={hasContributed} />
+      <Sidebar username={username}  />
 
       {/* Main content */}
       <div className="flex-1 p-10 overflow-y-auto z-10 relative">

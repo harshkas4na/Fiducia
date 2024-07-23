@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { useUser } from "../context/UserContext";
+import { MultiPartyWallet_ABI } from "../_web3/ABIs/MultiPartyWallet_ABI";
+import { CryptoInsurance_ADDRESS, MultiPartyWallet_ADDRESS } from "../_web3/constants";
+import { CryptoInsurance_ABI } from "../_web3/ABIs/CryptoInsurance_ABI";
+import { useContract } from "../context/ContractContext";
 
 declare global {
   interface Window {
@@ -18,6 +22,8 @@ const ConnectWallet: React.FC = () => {
     account,
     setAccount,
   } = useUser();
+
+  const {setWalletContract,setInsuranceContract}=useContract();
 
   useEffect(() => {
     const checkIfWalletIsConnected = async () => {
@@ -55,6 +61,35 @@ const ConnectWallet: React.FC = () => {
       alert("Please install MetaMask to use this feature.");
     }
   };
+  useEffect(() => {
+    const ConnectWalletContract = async () => {
+      // Create a new instance of Web3
+      const web3 = new Web3(window.ethereum);
+      // Create a new contract instance
+      const contract = new web3.eth.Contract(
+        MultiPartyWallet_ABI as any,
+        MultiPartyWallet_ADDRESS
+      );
+      setWalletContract(contract);
+    };
+    const ConnectInsuranceContract = async () => {
+      // Create a new instance of Web3
+      const web3 = new Web3(window.ethereum);
+      // Create a new contract instance
+      const contract = new web3.eth.Contract(
+        CryptoInsurance_ABI as any,
+        CryptoInsurance_ADDRESS
+      );
+      setInsuranceContract(contract);
+    };
+
+    return () => {
+      ConnectWalletContract();
+      ConnectInsuranceContract();
+    };
+  }, [account]);
+
+  
 
   return (
     <>
@@ -62,6 +97,7 @@ const ConnectWallet: React.FC = () => {
         onClick={connectWallet}
         className="absolute top-0 right-0 m-4 p-2 bg-transparent border-2 border-gray-200 text-gray-200 font-bold rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm overflow-hidden group"
       >
+
         <span className="relative z-10">
           {isConnected ? "Wallet Connected" : "Connect Wallet"}
         </span>

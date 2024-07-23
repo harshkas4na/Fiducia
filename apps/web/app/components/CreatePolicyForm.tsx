@@ -25,23 +25,7 @@ const CreatePolicyForm: React.FC = () => {
   const [triggerPrice, setTriggerPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const ConnectContract = async () => {
-      // Create a new instance of Web3
-      const web3 = new Web3(window.ethereum);
-      // Create a new contract instance
-      const contract = new web3.eth.Contract(
-        CryptoInsurance_ABI as any,
-        CryptoInsurance_ADDRESS
-      );
-      setInsuranceContract(contract);
-    };
-
-    return () => {
-      ConnectContract();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  
 
   const handleCreatePolicy = async () => {
     if (!window.ethereum || !InsuranceContract) {
@@ -85,7 +69,8 @@ const CreatePolicyForm: React.FC = () => {
         .mul(new BN(premiumRate))
         .div(new BN(10000));
       const premiumWei = premiumBN.toString();
-
+      console.log("Premium:", premiumWei);
+      
       const transaction = await InsuranceContract.methods
         .createPolicy(
           assetAddress,
@@ -99,14 +84,16 @@ const CreatePolicyForm: React.FC = () => {
         });
 
       // Reset form
+      
+    } catch (error) {
+      console.error("Error creating policy:", error);
+      
+      alert("Failed to create policy. Check console for details.");
+    } finally {
       setSelectedAsset("");
       setSelectedType("");
       setCoverageAmount("");
       setTriggerPrice("");
-    } catch (error) {
-      console.error("Error creating policy:", error);
-      alert("Failed to create policy. Check console for details.");
-    } finally {
       setLoading(false);
     }
   };
