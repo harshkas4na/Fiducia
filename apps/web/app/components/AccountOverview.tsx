@@ -4,18 +4,18 @@ import { FaEthereum, FaShieldAlt, FaCoins, FaWallet } from "react-icons/fa";
 import { RiExchangeFundsFill } from "react-icons/ri";
 import { useUser } from '../context/UserContext';
 import Web3, { Numbers } from 'web3';
-import { MultiPartyWallet_ABI } from '../_web3/ABIs/MultiPartyWallet_ABI';
-import { CryptoInsurance_ADDRESS, MultiPartyWallet_ADDRESS } from '../_web3/constants';
+
 import { useContract } from '../context/ContractContext';
-import { CryptoInsurance_ABI } from '../_web3/ABIs/CryptoInsurance_ABI';
+
 
 
 export default function AccountOverview() {
   const [accountBalance, setAccountBalance] = useState<number>(0);
-  const [tokenBalance, setTokenBalance] = useState(0);
+  const [tokenBalance, setTokenBalance] = useState("");
   const [activePolicies, setActivePolicies] = useState(0);
   // const [tokensOwned, setTokensOwned] = useState(0);
 
+  const {ERC20Contract,InsuranceContract} = useContract();
   const {account}=useUser();
   
   
@@ -25,37 +25,64 @@ export default function AccountOverview() {
 
     //fetching user current balance
     const fetchBalances = async () => {
-      if (!account) {
-        console.error("No user account found");
+      if (!account || !InsuranceContract) {
+        console.error("No user account found or contract not loaded");
         return;
       }
-
+    
       try {
         const web3 = new Web3(window.ethereum);
-
+    
         // Fetch account balance
         const balanceWei = await web3.eth.getBalance(account);
-        const balanceEth:Numbers = web3.utils.fromWei(balanceWei, 'ether');
+        const balanceEth = web3.utils.fromWei(balanceWei, 'ether');
         setAccountBalance(parseFloat(parseFloat(balanceEth).toFixed(4)));
-
-        // Interact with the contract
-        // const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-        // const tokenBalanceWei = await contract.methods.balanceOf(user.account).call();
-        // const tokenBalance = web3.utils.fromWei(tokenBalanceWei, 'ether');
-        // setTokenBalance(tokenBalance);
+    
+        // Fetch active policies count
+        const activePoliciesCount = await getActivePoliciesCount();
+        setActivePolicies(activePoliciesCount);
+    
+        // Fetch token balance
+        const tokenBalance = await ERC20Contract.methods.balanceOf(account).call();
+        setTokenBalance(web3.utils.fromWei(tokenBalance, "ether"));
       } catch (error) {
         console.error("Error fetching user data", error);
       }
-    } 
-
+    }
     fetchBalances();
     //
-    setTokenBalance(100);
-    setActivePolicies(2);
+   
+    
     // setTokensOwned(50);
-  }, [account]);
+  }, [account,ERC20Contract,InsuranceContract]);
 
+  const getActivePoliciesCount = async () => {
+    let count = 0;
+    
+    // Get the list of supported assets
+    let index = 0;
+    const supportedAssets = [];
+    while (true) {
+      try {
+        const asset = await InsuranceContract.methods.supportedAssetsList(index).call();
+        supportedAssets.push(asset);
+        index++;
+      } catch (error) {
+        // We've reached the end of the array
+        break;
+      }
+    }
   
+    // Check each asset for an active policy
+    for (const asset of supportedAssets) {
+      const policy = await InsuranceContract.methods.policies(asset, account).call();
+      if (policy.active) {
+        count++;
+      }
+    }
+  
+    return count;
+  };
 
   return (
     <div className="w-80 bg-gray-1000 bg-opacity-5 p-6 rounded-xl shadow-lg backdrop-blur-sm">

@@ -1,7 +1,4 @@
-// app/shareholdings/ShareholdingsPage.tsx
-"use client";
 
-import { useState, useEffect } from "react";
 import ContributionsSection from "../../components/ContributionsSection";
 import WalletOverviewSection from "../../components/WalletOverviewSection";
 import WithdrawFundsSection from "../../components/WithdrawFundsSection";
@@ -9,16 +6,7 @@ import WithdrawFundsSection from "../../components/WithdrawFundsSection";
 
 export default function ShareholdingsPage() {
   
-  const [memeCoins, setMemeCoins] = useState("0");
-
   
-
-  useEffect(() => {
-    // Fetch shareholding data from the MultiPartyWallet contract
-    // This is mock data for now
-    
-    setMemeCoins("1000");
-  }, []);
 
   
   return (
@@ -31,10 +19,10 @@ export default function ShareholdingsPage() {
 
         <div className="flex-grow flex flex-col lg:flex-row justify-start items-start gap-6 gap-x-14 mb-8">
           <ContributionsSection />
-          <WalletOverviewSection memeCoins={memeCoins} />
+          <WalletOverviewSection />
         </div>
 
-        <WithdrawFundsSection memeCoins={memeCoins} />
+        <WithdrawFundsSection  />
       </div>
     </div>
   );

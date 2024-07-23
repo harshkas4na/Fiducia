@@ -1,25 +1,43 @@
-// components/WithdrawFundsSection.tsx
-
+"use client";
+import { useState,useEffect } from "react";
 import { FaCoins } from "react-icons/fa";
 import WithdrawButton from "./WithdrawButton";
 import { useContract } from "../context/ContractContext";
 import { useUser } from "../context/UserContext";
-import Web3 from "web3";
-
-interface WithdrawFundsSectionProps {
-  memeCoins: string;
-  
-}
+import Web3, { Numbers } from "web3";
 
 
 
-const WithdrawFundsSection = ({
-  memeCoins,
-  
-}: WithdrawFundsSectionProps) => {
 
-  const {WalletContract}=useContract();
+const WithdrawFundsSection = () => {
+
+  const {WalletContract,ERC20Contract}=useContract();
+  const [memeCoinsBalance, setMemeCoins] = useState<string>("");
   const {account}=useUser();
+
+
+  useEffect(() => {
+    const fetchContractData = async () => {
+      if (typeof window.ethereum === "undefined") {
+        console.error("Ethereum provider not found.");
+        return;
+      }
+
+      try {
+        const web3 = new Web3(window.ethereum);
+        const memeCoinsBalance:Numbers = await ERC20Contract.methods.balanceOf(account).call();
+        setMemeCoins(web3.utils.fromWei(memeCoinsBalance, "ether"));
+
+      } catch (error) {
+        console.error("Error fetching data from contract:", error);
+
+    }
+  
+  }
+  fetchContractData();
+    
+  }, [ERC20Contract,account]);
+  
 
   const handleWithdraw = async () => {
     // Implement withdrawal logic here
@@ -39,6 +57,10 @@ const WithdrawFundsSection = ({
 
       
       const web3 = new Web3(window.ethereum);
+
+      
+
+
       // Call the contribute function on the contract
       const tx = await WalletContract.methods.leaveShareholding().send({
         from: account
@@ -66,7 +88,7 @@ const WithdrawFundsSection = ({
           <p className="text-sm text-blue-200 mb-2">MemeCoin Balance</p>
           <p className="text-2xl font-bold text-white">
             <FaCoins className="inline mr-2 text-yellow-400" />
-            {memeCoins} MEME
+            {memeCoinsBalance} MEME
           </p>
         </div>
         <div className="flex justify-center">

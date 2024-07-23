@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 
 import Link from "next/link";
 import { FaUser, FaEthereum, FaChartLine, FaAddressCard } from "react-icons/fa";
@@ -12,6 +12,7 @@ interface SidebarProps {
   username: string;
 }
 const Sidebar = ({ username }: SidebarProps) => {
+  const [WalletClosed, setWalletClosed] = useState(false);
   const { Contributed, setContributed, WalletContract } = useContract();
   const { account } = useUser();
 
@@ -29,8 +30,17 @@ const Sidebar = ({ username }: SidebarProps) => {
       }
     };
 
+    const checkWalletStatus = async () => {
+      if (!account) return;
+      const walletStatus = await WalletContract.methods.walletClosed().call();
+      setWalletClosed(walletStatus);
+    }
+
+    checkWalletStatus();
     getContributed();
-  }, [account]);
+  }, [account, WalletContract]);
+
+  
 
   return (
     <div className="w-64 bg-gray-600 bg-opacity-10 p-5 relative">
@@ -40,11 +50,11 @@ const Sidebar = ({ username }: SidebarProps) => {
       </Link>
       <nav>
         <Link
-          href={Contributed ? "/Home/shareholdings" : "/Home/contribute"}
+          href={WalletClosed ? "/Home/shareholdings" : "/Home/contribute"}
           className="flex items-center py-2 px-4 hover:bg-gray-700 rounded"
         >
           <FaEthereum className="mr-3" />
-          {Contributed ? "Shareholdings" : "Contribute"}
+          {WalletClosed ? "Shareholdings" : "Contribute"}
         </Link>
         <Link
           href="/Home/policies"

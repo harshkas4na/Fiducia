@@ -9,18 +9,16 @@ import { useContract } from "../context/ContractContext";
 import { useUser } from "../context/UserContext";
 import Web3, { Numbers } from "web3";
   
-  interface WalletOverviewSectionProps {
-    
-    memeCoins: string;
-  }
+
   
-  const WalletOverviewSection = ({
-    memeCoins
-  }: WalletOverviewSectionProps) => {
-    const {WalletContract}=useContract();
+  const WalletOverviewSection = () => {
+    const {WalletContract,ERC20Contract}=useContract();
     const {account}=useUser();
 
     const [totalContributions, setTotalContributions] = useState<string>("");
+    const [memeCoinsBalance, setMemeCoins] = useState<string>("");
+
+
     useEffect(() => {
       const fetchContractData = async () => {
         if (typeof window.ethereum === "undefined") {
@@ -31,7 +29,12 @@ import Web3, { Numbers } from "web3";
         try {
           const web3 = new Web3(window.ethereum);
           const totalContributionsInWei:Numbers = await WalletContract.methods.totalContributions().call();
+          console.log("totalContributionsInWei",totalContributionsInWei);
           setTotalContributions(web3.utils.fromWei(totalContributionsInWei, "ether"));
+
+          const memeCoinsBalance:Numbers = await ERC20Contract.methods.balanceOf(account).call();
+          console.log("memeCoinsBalance",memeCoinsBalance);
+          setMemeCoins(web3.utils.fromWei(memeCoinsBalance, "ether"));
   
         } catch (error) {
           console.error("Error fetching data from contract:", error);
@@ -39,9 +42,9 @@ import Web3, { Numbers } from "web3";
       };
   
       fetchContractData();
-    }, []);
+    }, [account,WalletContract,ERC20Contract]);
 
-
+    console.log("memecoins",memeCoinsBalance);
     
 
     return (
@@ -62,7 +65,7 @@ import Web3, { Numbers } from "web3";
             <p className="text-sm text-blue-200 mb-2">Your MemeCoin Balance</p>
             <p className="text-2xl font-bold text-white">
               <FaCoins className="inline mr-2 text-red-800" />
-              {memeCoins} MEME
+              {memeCoinsBalance} MEME
             </p>
           </div>
         </div>
