@@ -55,6 +55,7 @@ const TriggerCheckPrice: React.FC = () => {
 
     try {
       const lastTimestamp = await InsuranceContract.methods.LastTriggerTimestamp().call();
+      console.log("Last trigger time:", lastTimestamp);
       setLastTriggerTime(Number(lastTimestamp));
     } catch (error) {
       console.error("Error fetching last trigger time:", error);

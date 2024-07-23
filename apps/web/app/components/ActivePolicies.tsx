@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaShieldAlt, FaCoins, FaChartLine, FaEthereum } from "react-icons/fa";
 import { useContract } from "../context/ContractContext";
 import Web3 from 'web3';
+import { useUser } from "../context/UserContext";
 
 interface Policy {
   id: number;
@@ -18,48 +19,61 @@ const ActivePolicies: React.FC = () => {
   const { InsuranceContract } = useContract();
   const [activePolicies, setActivePolicies] = useState<Policy[]>([]);
 
+  const { account}= useUser();
+
   useEffect(() => {
     const fetchPolicies = async () => {
       if (!InsuranceContract || !window.ethereum) return;
-
+  
       const web3 = new Web3(window.ethereum);
-      const accounts = await web3.eth.getAccounts();
-      const userAddress = accounts[0];
-
+  
       try {
-        const supportedAssetsList = await InsuranceContract.methods.supportedAssetsList().call();
+        let index = 0;
+        let supportedAssetsList = [];
+        while (true) {
+          try {
+            const asset = await InsuranceContract.methods.supportedAssetsList(index).call();
+            supportedAssetsList.push(asset);
+            index++;
+          } catch (error) {
+            // We've reached the end of the array
+            break;
+          }
+        }
+  
         let policies: Policy[] = [];
-
+  
         for (let asset of supportedAssetsList) {
           for (let i = 0; i < 3; i++) { // For each insurance type
-            const policy = await InsuranceContract.methods.policies(asset, userAddress).call();
-            if (policy.active) {
+            const policy = await InsuranceContract.methods.policies(asset, account).call();
+            console.log("Policy:", policy);
+            if (policy.active && Number(policy.insuranceType) === i) {
               policies.push({
                 id: policies.length + 1,
                 asset: await getAssetSymbol(asset),
                 type: InsuranceType[i],
-                coverage: web3.utils.fromWei(policy.coverageAmount, 'ether'),
-                triggerPrice: web3.utils.fromWei(policy.triggerPrice, 'ether'),
-                endTime: new Date(policy.endTime * 1000).toISOString().split('T')[0]
+                coverage: web3.utils.fromWei(policy.coverageAmount.toString(), 'ether'),
+                triggerPrice: policy.triggerPrice.toString(),
+                endTime: new Date(Number(policy.endTime) * 1000).toISOString().split('T')[0]
               });
             }
           }
         }
-
+        console.log("Active policies:", policies);
         setActivePolicies(policies);
       } catch (error) {
         console.error("Error fetching policies:", error);
       }
     };
-
+  
     fetchPolicies();
-  }, [InsuranceContract]);
+  }, [account, InsuranceContract]);
 
   const getAssetSymbol = async (assetAddress: string) => {
     // This is a placeholder. You might want to implement a proper mapping or fetch from contract
     const assetMap: {[key: string]: string} = {
-      "0x1234...": "ETH",
-      "0x5678...": "BTC",
+      "0x1234567890123456789012345678901234567890": "ETH",
+      "0x0987654321098765432109876543210987654321": "BTC",
       // Add more mappings as needed
     };
     return assetMap[assetAddress] || "Unknown";

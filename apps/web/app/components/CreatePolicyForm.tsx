@@ -69,7 +69,8 @@ const CreatePolicyForm: React.FC = () => {
         .mul(new BN(premiumRate))
         .div(new BN(10000));
       const premiumWei = premiumBN.toString();
-      console.log("Premium:", premiumWei);
+      
+
       
       const transaction = await InsuranceContract.methods
         .createPolicy(
