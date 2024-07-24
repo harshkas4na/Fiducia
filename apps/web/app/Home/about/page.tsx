@@ -20,7 +20,7 @@ export default function AboutPage() {
         </h1>
 
         <div
-          className="bg-transparent p-6 rounded-lg shadow-lg border border-blue-500 bg-opacity-10 backdrop-filter backdrop-blur-sm"
+          className="bg-transparent p-6 rounded-3xl shadow-lg border border-blue-500 bg-opacity-10 backdrop-filter backdrop-blur-sm"
           style={{ boxShadow: "inset 0 0 20px rgba(0, 123, 255, 0.5)" }}
         >
           <h2 className="text-2xl font-semibold mb-4 text-blue-400">
