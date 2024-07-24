@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import { FaUser, FaEthereum, FaChartLine, FaAddressCard } from "react-icons/fa";
@@ -35,24 +35,24 @@ const Sidebar = ({ username }: SidebarProps) => {
       if (!account) return;
       const walletStatus = await WalletContract.methods.walletClosed().call();
       setWalletClosed(walletStatus);
-    }
+    };
 
     checkWalletStatus();
     getContributed();
   }, [account, WalletContract]);
 
-  
-
   return (
     <div className="w-64 bg-gray-600 bg-opacity-10 p-5 relative">
       <Link href="/Home" className="flex cursor-pointer items-center mb-10">
-      <Image
-              src="/logo.png"
-              alt="Fiducia"
-              width={100}
-              height={100}
-              className="rounded-[10px]"
-            />
+        <div className="rounded-full size-10 opacity-60">
+          <Image
+            src="/logo.png"
+            alt="Fiducia"
+            width={100}
+            height={100}
+            className="rounded-[10px]"
+          />
+        </div>
       </Link>
       <nav>
         <Link
