@@ -62,10 +62,10 @@ import Web3, { Numbers } from "web3";
             </p>
           </div>
           <div className="text-center mb-6">
-            <p className="text-sm text-blue-200 mb-2">Your MemeCoin Balance</p>
+            <p className="text-sm text-blue-200 mb-2">Your FIDU Coin Balance</p>
             <p className="text-2xl font-bold text-white">
               <FaCoins className="inline mr-2 text-red-800" />
-              {memeCoinsBalance} MEME
+              {memeCoinsBalance} FIDU
             </p>
           </div>
         </div>

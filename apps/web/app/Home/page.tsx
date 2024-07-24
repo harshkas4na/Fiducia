@@ -10,14 +10,14 @@ import AccountOverview from '../components/AccountOverview';
 
 
 export default function HomePage() {
-  const username = "John Doe";
+  
   
 
   return (
     <div className="relative flex flex-col h-full">
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
-      <WelcomeHeader username={username} />
+      <WelcomeHeader  />
 
         <div className="flex flex-1 px-8">
           <div className="flex-1 pr-8">

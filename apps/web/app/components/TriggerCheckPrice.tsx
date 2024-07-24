@@ -43,7 +43,7 @@ const TriggerCheckPrice: React.FC = () => {
 
     try {
       const web3 = new Web3(window.ethereum);
-      const reward = await InsuranceContract.methods.rewards(account).call();
+      const reward = await InsuranceContract.methods.memeRewards(account).call();
       setRewardBalance(web3.utils.fromWei(reward, "ether"));
     } catch (error) {
       console.error("Error fetching reward balance:", error);
@@ -108,7 +108,7 @@ const TriggerCheckPrice: React.FC = () => {
     setIsClaimLoading(true);
 
     try {
-      const transaction = await InsuranceContract.methods.claimReward().send({
+      const transaction = await InsuranceContract.methods.claimMemeReward().send({
         from: account,
       });
       if(transaction.status === true){
@@ -155,7 +155,7 @@ const TriggerCheckPrice: React.FC = () => {
         <div className="bg-gray-700 bg-opacity-30 p-3 rounded-lg mb-4">
           <p className="text-sm text-gray-300 text-center">
             Your Reward Balance:{" "}
-            <span className="font-bold text-blue-300">{rewardBalance} ETH</span>
+            <span className="font-bold text-blue-300">{rewardBalance} FIDU</span>
           </p>
         </div>
         <button

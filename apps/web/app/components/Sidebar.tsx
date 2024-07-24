@@ -7,6 +7,7 @@ import { useContract } from "../context/ContractContext";
 import { useUser } from "../context/UserContext";
 import { Numbers } from "web3";
 import { FaInfo } from "react-icons/fa6";
+import Image from "next/image";
 
 interface SidebarProps {
   username: string;
@@ -45,8 +46,13 @@ const Sidebar = ({ username }: SidebarProps) => {
   return (
     <div className="w-64 bg-gray-600 bg-opacity-10 p-5 relative">
       <Link href="/Home" className="flex cursor-pointer items-center mb-10">
-        <FaUser className="text-2xl mr-3" />
-        <span className="text-lg font-semibold">{username}</span>
+      <Image
+              src="/logo.png"
+              alt="Fiducia"
+              width={100}
+              height={100}
+              className="rounded-[10px]"
+            />
       </Link>
       <nav>
         <Link

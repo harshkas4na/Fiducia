@@ -85,10 +85,10 @@ const WithdrawFundsSection = () => {
           Withdraw Shares
         </h2>
         <div className="text-center mb-6">
-          <p className="text-sm text-blue-200 mb-2">MemeCoin Balance</p>
+          <p className="text-sm text-blue-200 mb-2">FIDU Coin Balance</p>
           <p className="text-2xl font-bold text-white">
             <FaCoins className="inline mr-2 text-yellow-400" />
-            {memeCoinsBalance} MEME
+            {memeCoinsBalance} FIDU
           </p>
         </div>
         <div className="flex justify-center">

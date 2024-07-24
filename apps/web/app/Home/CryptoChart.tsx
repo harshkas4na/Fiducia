@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useCallback} from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 import {
@@ -17,6 +17,7 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { format } from "date-fns";
+import { useContract } from "../context/ContractContext";
 
 ChartJS.register(
   CategoryScale,
@@ -79,7 +80,18 @@ const chartOptions: ChartOptions<"line"> = {
   },
 };
 
-const CryptoChart: React.FC = () => {
+interface ChartProps {
+  setEthPrice: (price: number) => void; 
+  setBitcoinPrice: (price: number) => void;
+}
+
+
+
+const CryptoChart: React.FC<ChartProps> = ({setBitcoinPrice,setEthPrice}:ChartProps) => {
+
+  const {InsuranceContract,ERC20Contract}=useContract();
+
+
   const [chartData, setChartData] = useState<any>({
     datasets: [
       {
@@ -99,6 +111,18 @@ const CryptoChart: React.FC = () => {
     ],
   });
   const [error, setError] = useState<string | null>(null);
+
+  const updateCurrentPrices = () => {
+    if (chartData.datasets[0].data.length > 0 && chartData.datasets[1].data.length > 0) {
+      const latestEthPrice = chartData.datasets[0].data[chartData.datasets[0].data.length - 1].y;
+      const latestBitcoinPrice = chartData.datasets[1].data[chartData.datasets[1].data.length - 1].y;
+      console.log(latestEthPrice, latestBitcoinPrice);
+      setEthPrice(latestEthPrice);
+      setBitcoinPrice(latestBitcoinPrice);
+    }
+  };
+
+  // updateCurrentPrices();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,8 +157,10 @@ const CryptoChart: React.FC = () => {
             },
           ],
         });
+      
         setError(null);
       } catch (err) {
+        
         console.error("Error fetching data:", err);
         setError(
           "Failed to fetch cryptocurrency data. Please try again later."
@@ -143,11 +169,24 @@ const CryptoChart: React.FC = () => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 60000); // Update every minute
+    const interval = setInterval(() => {
+      fetchData();
+      updateCurrentPrices();
+    }, 60000);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useCallback(
+    () => {
+      updateCurrentPrices
+    },
+    [chartData],
+  )
+  
+  updateCurrentPrices();
+  
 
   if (error) {
     return <div className="text-red-500">{error}</div>;
