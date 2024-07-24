@@ -39,7 +39,7 @@ export default function AccountOverview() {
         setAccountBalance(parseFloat(parseFloat(balanceEth).toFixed(4)));
     
         // Fetch active policies count
-        const activePoliciesCount = await getActivePoliciesCount();
+        const activePoliciesCount = await InsuranceContract.methods.activePoliciesCount.call();
         setActivePolicies(activePoliciesCount);
     
         // Fetch token balance
@@ -56,33 +56,7 @@ export default function AccountOverview() {
     // setTokensOwned(50);
   }, [account,ERC20Contract,InsuranceContract]);
 
-  const getActivePoliciesCount = async () => {
-    let count = 0;
-    
-    // Get the list of supported assets
-    let index = 0;
-    const supportedAssets = [];
-    while (true) {
-      try {
-        const asset = await InsuranceContract.methods.supportedAssetsList(index).call();
-        supportedAssets.push(asset);
-        index++;
-      } catch (error) {
-        // We've reached the end of the array
-        break;
-      }
-    }
-  
-    // Check each asset for an active policy
-    for (const asset of supportedAssets) {
-      const policy = await InsuranceContract.methods.policies(asset, account).call();
-      if (policy.active) {
-        count++;
-      }
-    }
-  
-    return count;
-  };
+ 
 
   return (
     <div className="w-80 bg-gray-1000 bg-opacity-5 p-6 rounded-xl shadow-lg backdrop-blur-sm">

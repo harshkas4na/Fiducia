@@ -46,8 +46,8 @@ const ActivePolicies: React.FC = () => {
         for (let asset of supportedAssetsList) {
           for (let i = 0; i < 3; i++) { // For each insurance type
             const policy = await InsuranceContract.methods.policies(asset, account).call();
-            console.log("Policy:", policy);
-            if (policy.active && Number(policy.insuranceType) === i) {
+            console.log("Policy",policy);
+            if (policy.active) {
               policies.push({
                 id: policies.length + 1,
                 asset: await getAssetSymbol(asset),
@@ -59,7 +59,7 @@ const ActivePolicies: React.FC = () => {
             }
           }
         }
-        console.log("Active policies:", policies);
+        
         setActivePolicies(policies);
       } catch (error) {
         console.error("Error fetching policies:", error);
