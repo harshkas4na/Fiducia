@@ -44,7 +44,9 @@ const TriggerCheckPrice: React.FC = () => {
     try {
       const web3 = new Web3(window.ethereum);
       const reward = await InsuranceContract.methods.memeRewards(account).call();
-      setRewardBalance(web3.utils.fromWei(reward, "ether"));
+      const rewardNum=Number(reward);
+      
+      setRewardBalance(String(rewardNum));
     } catch (error) {
       console.error("Error fetching reward balance:", error);
     }

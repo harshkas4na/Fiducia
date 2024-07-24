@@ -24,9 +24,9 @@ const ActivePolicies: React.FC = () => {
   useEffect(() => {
     const fetchPolicies = async () => {
       if (!InsuranceContract || !window.ethereum) return;
-  
+    
       const web3 = new Web3(window.ethereum);
-  
+    
       try {
         let index = 0;
         let supportedAssetsList = [];
@@ -40,13 +40,14 @@ const ActivePolicies: React.FC = () => {
             break;
           }
         }
-  
-        let policies: Policy[] = [];
-  
+    
+        let policies = [];
+    
         for (let asset of supportedAssetsList) {
-          for (let i = 0; i < 3; i++) { // For each insurance type
-            const policy = await InsuranceContract.methods.policies(asset, account).call();
-            console.log("Policy",policy);
+          const userPolicies = await InsuranceContract.methods.getUserPolicies(account, asset).call();
+          
+          for (let i = 0; i < userPolicies.length; i++) {
+            const policy = userPolicies[i];
             if (policy.active) {
               policies.push({
                 id: policies.length + 1,

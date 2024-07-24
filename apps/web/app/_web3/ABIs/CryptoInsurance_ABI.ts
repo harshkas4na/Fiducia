@@ -121,6 +121,12 @@ export const CryptoInsurance_ABI =[
 			},
 			{
 				"indexed": false,
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
@@ -143,6 +149,12 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "asset",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
 			},
 			{
 				"indexed": false,
@@ -300,23 +312,24 @@ export const CryptoInsurance_ABI =[
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "withdrawEther",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"stateMutability": "payable",
 		"type": "receive"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "activePoliciesCount",
+		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"name": "activePolicyHolders",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -357,6 +370,11 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"name": "claims",
@@ -370,6 +388,77 @@ export const CryptoInsurance_ABI =[
 				"internalType": "bool",
 				"name": "processed",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			}
+		],
+		"name": "getUserPolicies",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "holder",
+						"type": "address"
+					},
+					{
+						"internalType": "enum CryptoInsurance.InsuranceType",
+						"name": "insuranceType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "coverageAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "premium",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "triggerPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "purchasePrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "active",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct CryptoInsurance.Policy[3]",
+				"name": "",
+				"type": "tuple[3]"
 			}
 		],
 		"stateMutability": "view",
@@ -470,6 +559,11 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"name": "policies",
@@ -526,30 +620,6 @@ export const CryptoInsurance_ABI =[
 	{
 		"inputs": [],
 		"name": "POLICY_DURATION",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "policyIndex",
 		"outputs": [
 			{
 				"internalType": "uint256",

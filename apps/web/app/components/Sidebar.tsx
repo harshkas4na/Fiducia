@@ -44,7 +44,7 @@ const Sidebar = ({ username }: SidebarProps) => {
   return (
     <div className="w-64 bg-gray-600 bg-opacity-10 p-5 relative">
       <Link href="/Home" className="flex cursor-pointer items-center mb-10">
-        <div className="rounded-full size-10 opacity-60">
+        <div className="rounded-full flex gap-5 items-center size-10 opacity-60">
           <Image
             src="/logo.png"
             alt="Fiducia"
@@ -52,6 +52,7 @@ const Sidebar = ({ username }: SidebarProps) => {
             height={100}
             className="rounded-[10px]"
           />
+          <span className="text-white text-bold text-2xl">FIDUCIA</span>
         </div>
       </Link>
       <nav>
