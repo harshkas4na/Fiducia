@@ -39,8 +39,9 @@ export default function AccountOverview() {
         setAccountBalance(parseFloat(parseFloat(balanceEth).toFixed(4)));
     
         // Fetch active policies count
-        const activePoliciesCount = await InsuranceContract.methods.activePoliciesCount.call();
-        setActivePolicies(activePoliciesCount);
+        const activePoliciesCount = await InsuranceContract.methods.activePoliciesCount().call();
+        
+        setActivePolicies(Number(activePoliciesCount));
     
         // Fetch token balance
         const tokenBalance = await ERC20Contract.methods.balanceOf(account).call();
@@ -89,13 +90,6 @@ export default function AccountOverview() {
                 </div>
                 <span className="text-xl font-semibold">{activePolicies}</span>
               </div>
-              {/* <div className="flex items-center justify-between bg-opacity-20 p-4 bg-gray-700 rounded-lg">
-                <div className="flex items-center">
-                  <FaCoins className="text-purple-400 text-2xl mr-3" />
-                  <span className="text-lg">Tokens Owned</span>
-                </div>
-                <span className="text-xl font-semibold">{tokensOwned}</span>
-              </div> */}
             </div>
           </div>
   );
