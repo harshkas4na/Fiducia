@@ -20,12 +20,10 @@ const Timer: React.FC = () => {
     }
 
     try {
-
       const web3 = new Web3(window.ethereum);
 
       const tx = await WalletContract.methods.closeWallet().send({
         from: account,
-        
       });
 
       // Wait for the transaction receipt
@@ -38,7 +36,6 @@ const Timer: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchClosureTime = async () => {
       if (typeof window.ethereum === "undefined") {
@@ -50,6 +47,7 @@ const Timer: React.FC = () => {
         const web3 = new Web3(window.ethereum);
 
         const closureTime = await WalletContract.methods.closureTime().call();
+        console.log("Fetched closure time:", closureTime);
         setClosureTime(Number(closureTime));
       } catch (error) {
         console.error("Error fetching closure time from contract:", error);
@@ -57,18 +55,19 @@ const Timer: React.FC = () => {
     };
 
     fetchClosureTime();
-  }, [ WalletContract]);
+  }, [WalletContract]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+    console.log("Closure time updated:", closureTime);
+  }, [closureTime]);
 
   const calculateTimeLeft = () => {
-    const difference = closureTime * 1000 - new Date().getTime();
+    const now = new Date().getTime();
+    console.log("Current time:", now);
+    console.log("Closure time:", closureTime * 1000);
+    const difference =   now-closureTime * 1000;
+    console.log("Time difference:", difference);
+
     let timeLeft = {
       days: 0,
       hours: 0,
@@ -84,12 +83,20 @@ const Timer: React.FC = () => {
         seconds: Math.floor((difference / 1000) % 60),
       };
     }
-
+    console.log("Calculated time left:", timeLeft);
     return timeLeft;
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [closureTime]);
+  
   return (
     <div className="backdrop-blur-md bg-gray-800 bg-opacity-20 p-8 ml-16  rounded-3xl shadow-lg lg:w-2/5 relative overflow-hidden">
       <div className="absolute inset-0 shadow-inner shadow-blue-500/50"></div>

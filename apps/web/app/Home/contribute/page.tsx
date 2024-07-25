@@ -1,6 +1,8 @@
 import ContributionForm from "../../components/ContributionForm";
 import ContributionBenefits from "../../components/ContributionBenefits";
-import Timer from "../../components/Timer";
+import dynamic from 'next/dynamic'
+
+const Timer = dynamic(() => import('../../components/Timer'), { ssr: false })
 
 export default function ContributePage() {
   const minimumContribution = "0.001";
