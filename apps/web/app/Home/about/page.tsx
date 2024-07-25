@@ -78,6 +78,49 @@ export default function AboutPage() {
             the decentralized finance landscape with confidence and precision.
           </p>
 
+          {/* New section explaining how the DApp works */}
+          <div
+            className="bg-transparent p-6 rounded-lg shadow-lg border border-red-500 bg-opacity-10 backdrop-filter backdrop-blur-sm mt-6"
+            style={{ boxShadow: "inset 0 0 20px rgba(255, 100, 100, 0.5)" }}
+          >
+            <h3 className="text-xl font-semibold mb-4 text-red-300">
+              How Our DApp Functions
+            </h3>
+            <p className="mb-4 text-gray-300">
+              Fiducia operates on a unique model that combines collaborative
+              investing with crypto insurance:
+            </p>
+            <ol className="list-decimal list-inside mb-4 text-gray-300">
+              <li>
+                Users contribute Ether to become shareholders in the Multi-Party
+                Wallet.
+              </li>
+              <li>
+                Shareholders can purchase insurance policies to protect their
+                crypto assets.
+              </li>
+              <li>Policy premiums are sent to the Multi-Party Wallet.</li>
+              <li>
+                Premiums are distributed proportionally among shareholders based
+                on their shares.
+              </li>
+            </ol>
+            <h4 className="text-lg font-semibold mb-2 text-purple-300">
+              Insurance Policy Premium Rates:
+            </h4>
+            <ul className="list-disc list-inside mb-4 text-blue-200">
+              <li>Loan Protection: 10% premium rate</li>
+              <li>Threshold-based Coverage: 15% premium rate</li>
+              <li>Sudden Drop Protection: 20% premium rate</li>
+            </ul>
+            <p className="text-gray-300">
+              This system ensures that all shareholders benefit from the
+              insurance premiums, creating a sustainable and mutually beneficial
+              ecosystem for collaborative investing and risk management in the
+              crypto space.
+            </p>
+          </div>
+
           <div
             className="bg-transparent p-6 rounded-lg shadow-lg border border-blue-500 bg-opacity-10 backdrop-filter backdrop-blur-sm mt-6"
             style={{ boxShadow: "inset 0 0 20px rgba(0, 123, 255, 0.5)" }}
