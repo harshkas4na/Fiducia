@@ -3,18 +3,16 @@
 import Spline from "@splinetool/react-spline/next";
 import ConnectWallet from "../components/connectWallet";
 import Sidebar from "../components/Sidebar";
-import { ToastContainer } from 'react-toastify';
+import ClientToastContainer from "../components/ClientToastContainer";
 
 // In your JSX, near the root level:
-
 
 export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const username="John Doe"; // Replace with actual user data
-  
+  const username = "John Doe"; // Replace with actual user data
 
   return (
     <div className="flex h-screen bg-gray-900 text-white relative">
@@ -22,24 +20,14 @@ export default function HomeLayout({
         <Spline scene="https://prod.spline.design/Jib1Qow0Z1vVdo9F/scene.splinecode" />
       </div>
       {/* Sidebar */}
-      <Sidebar username={username}  />
+      <Sidebar username={username} />
 
       {/* Main content */}
       <div className="flex-1 p-10 overflow-y-auto z-10 relative">
-      <ConnectWallet/>
+        <ConnectWallet />
         {children}
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ClientToastContainer />
     </div>
   );
 }
