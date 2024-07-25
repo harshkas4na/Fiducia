@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useContract } from "../context/ContractContext";
 import Web3 from "web3";
 import { useUser } from "../context/UserContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TriggerCheckPrice: React.FC = () => {
   const { InsuranceContract } = useContract();
@@ -43,9 +45,11 @@ const TriggerCheckPrice: React.FC = () => {
 
     try {
       const web3 = new Web3(window.ethereum);
-      const reward = await InsuranceContract.methods.memeRewards(account).call();
-      const rewardNum=Number(reward);
-      
+      const reward = await InsuranceContract.methods
+        .memeRewards(account)
+        .call();
+      const rewardNum = Number(reward);
+
       setRewardBalance(String(rewardNum));
     } catch (error) {
       console.error("Error fetching reward balance:", error);
@@ -56,7 +60,9 @@ const TriggerCheckPrice: React.FC = () => {
     if (!InsuranceContract || !window.ethereum) return;
 
     try {
-      const lastTimestamp = await InsuranceContract.methods.LastTriggerTimestamp().call();
+      const lastTimestamp = await InsuranceContract.methods
+        .LastTriggerTimestamp()
+        .call();
       console.log("Last trigger time:", lastTimestamp);
       setLastTriggerTime(Number(lastTimestamp));
     } catch (error) {
@@ -66,7 +72,9 @@ const TriggerCheckPrice: React.FC = () => {
 
   const handleTriggerPriceCheck = async () => {
     if (!InsuranceContract || !window.ethereum) {
-      alert("Please connect to MetaMask and ensure the contract is loaded.");
+      toast.error(
+        "Please connect to MetaMask and ensure the contract is loaded."
+      );
       return;
     }
 
@@ -84,13 +92,15 @@ const TriggerCheckPrice: React.FC = () => {
         .send({
           from: account,
         });
-      alert(`Price check triggered successfully! You've earned a reward.`);
+      toast.error(
+        `Price check triggered successfully! You've earned a reward.`
+      );
 
       await fetchRewardBalance();
       await fetchLastTriggerTime();
     } catch (error) {
       console.error("Error triggering price check:", error);
-      alert("Failed to trigger price check. Check console for details.");
+      toast.error("Failed to trigger price check. Check console for details.");
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +108,9 @@ const TriggerCheckPrice: React.FC = () => {
 
   const handleClaimReward = async () => {
     if (!InsuranceContract || !window.ethereum) {
-      alert("Please connect to MetaMask and ensure the contract is loaded.");
+      toast.error(
+        "Please connect to MetaMask and ensure the contract is loaded."
+      );
       return;
     }
 
@@ -110,19 +122,20 @@ const TriggerCheckPrice: React.FC = () => {
     setIsClaimLoading(true);
 
     try {
-      const transaction = await InsuranceContract.methods.claimMemeReward().send({
-        from: account,
-      });
-      if(transaction.status === true){
-        alert(`Reward claimed successfully!`);
-      }
-      else{
-        alert(`Contract doesn't have enough Balance!`);
+      const transaction = await InsuranceContract.methods
+        .claimMemeReward()
+        .send({
+          from: account,
+        });
+      if (transaction.status === true) {
+        toast.error(`Reward claimed successfully!`);
+      } else {
+        toast.error(`Contract doesn't have enough Balance!`);
       }
       await fetchRewardBalance();
     } catch (error) {
       console.error("Error claiming reward:", error);
-      alert("Failed to claim reward.");
+      toast.error("Failed to claim reward.");
     } finally {
       setIsClaimLoading(false);
     }
@@ -147,17 +160,19 @@ const TriggerCheckPrice: React.FC = () => {
             {isLoading
               ? "Triggering..."
               : timeUntilNextTrigger
-              ? `Next trigger in ${timeUntilNextTrigger}`
-              : "Trigger Price Check"}
+                ? `Next trigger in ${timeUntilNextTrigger}`
+                : "Trigger Price Check"}
           </span>
           <div className="absolute inset-0 bg-orange-400 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
           <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(251,146,60,0.5)] group-hover:shadow-[inset_0_0_15px_rgba(251,146,60,0.7)] transition-shadow duration-300"></div>
         </button>
-        
+
         <div className="bg-gray-700 bg-opacity-30 p-3 rounded-lg mb-4">
           <p className="text-sm text-gray-300 text-center">
             Your Reward Balance:{" "}
-            <span className="font-bold text-blue-300">{rewardBalance} FIDU</span>
+            <span className="font-bold text-blue-300">
+              {rewardBalance} FIDU
+            </span>
           </p>
         </div>
         <button

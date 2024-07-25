@@ -8,6 +8,8 @@ import BN from "bn.js";
 import { CryptoInsurance_ABI } from "../_web3/ABIs/CryptoInsurance_ABI";
 import { CryptoInsurance_ADDRESS } from "../_web3/constants";
 import { useUser } from "../context/UserContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const insuranceTypes = [
   { id: "0", name: "Loan Insurance" },
@@ -25,11 +27,11 @@ const CreatePolicyForm: React.FC = () => {
   const [triggerPrice, setTriggerPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
-  
-
   const handleCreatePolicy = async () => {
     if (!window.ethereum || !InsuranceContract) {
-      alert("Please connect to MetaMask and ensure the contract is loaded.");
+      toast.error(
+        "Please connect to MetaMask and ensure the contract is loaded."
+      );
       return;
     }
 
@@ -69,9 +71,7 @@ const CreatePolicyForm: React.FC = () => {
         .mul(new BN(premiumRate))
         .div(new BN(10000));
       const premiumWei = premiumBN.toString();
-      
 
-      
       const transaction = await InsuranceContract.methods
         .createPolicy(
           assetAddress,
@@ -85,11 +85,10 @@ const CreatePolicyForm: React.FC = () => {
         });
 
       // Reset form
-      
     } catch (error) {
       console.error("Error creating policy:", error);
-      
-      alert("Failed to create policy. Check console for details.");
+
+      toast.error("Failed to create policy. Check console for details.");
     } finally {
       setSelectedAsset("");
       setSelectedType("");

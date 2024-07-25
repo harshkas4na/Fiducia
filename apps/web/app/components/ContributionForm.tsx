@@ -8,6 +8,8 @@ import { MultiPartyWallet_ABI } from "../_web3/ABIs/MultiPartyWallet_ABI";
 import { useContract } from "../context/ContractContext";
 import { useUser } from "../context/UserContext";
 import { set } from "date-fns/set";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ContributionFormProps {
   minimumContribution: string;
@@ -20,23 +22,21 @@ const ContributionForm: React.FC<ContributionFormProps> = ({
   const { account } = useUser();
   const [contribution, setContribution] = useState("");
 
-  
-
   const handleContribute = async () => {
     if (!contribution || parseFloat(contribution) <= 0) {
-      alert("Please enter a valid contribution amount.");
+      toast.error("Please enter a valid contribution amount.");
       return;
     }
 
     try {
       // Connect to the Ethereum provider
       if (!window.ethereum) {
-        alert("Please install MetaMask or another Ethereum wallet.");
+        toast.error("Please install MetaMask or another Ethereum wallet.");
         return;
       }
 
       if (!account) {
-        alert("Please connect your Ethereum wallet.");
+        toast.error("Please connect your Ethereum wallet.");
         return;
       }
 
@@ -53,10 +53,10 @@ const ContributionForm: React.FC<ContributionFormProps> = ({
       // Wait for the transaction receipt
       await web3.eth.getTransactionReceipt(tx.transactionHash);
 
-      alert("Contribution successful!");
+      toast.error("Contribution successful!");
     } catch (error) {
       console.error("Error contributing:", error);
-      alert("An error occurred while contributing.");
+      toast.error("An error occurred while contributing.");
     }
   };
 

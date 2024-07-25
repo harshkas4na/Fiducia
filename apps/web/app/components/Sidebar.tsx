@@ -8,6 +8,8 @@ import { useUser } from "../context/UserContext";
 import { Numbers } from "web3";
 import { FaInfo } from "react-icons/fa6";
 import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SidebarProps {
   username: string;

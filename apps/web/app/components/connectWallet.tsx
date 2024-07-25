@@ -3,10 +3,16 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { useUser } from "../context/UserContext";
 import { MultiPartyWallet_ABI } from "../_web3/ABIs/MultiPartyWallet_ABI";
-import { CryptoInsurance_ADDRESS, ERC20_ADDRESS, MultiPartyWallet_ADDRESS } from "../_web3/constants";
+import {
+  CryptoInsurance_ADDRESS,
+  ERC20_ADDRESS,
+  MultiPartyWallet_ADDRESS,
+} from "../_web3/constants";
 import { CryptoInsurance_ABI } from "../_web3/ABIs/CryptoInsurance_ABI";
 import { useContract } from "../context/ContractContext";
 import { ERC20_ABI } from "../_web3/ABIs/ERC20_ABI";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 declare global {
   interface Window {
@@ -24,7 +30,8 @@ const ConnectWallet: React.FC = () => {
     setAccount,
   } = useUser();
 
-  const {setWalletContract,setERC20Contract,setInsuranceContract}=useContract();
+  const { setWalletContract, setERC20Contract, setInsuranceContract } =
+    useContract();
 
   useEffect(() => {
     const checkIfWalletIsConnected = async () => {
@@ -57,9 +64,10 @@ const ConnectWallet: React.FC = () => {
         }
       } catch (error) {
         console.error("Error connecting wallet:", error);
+        toast.error("Error connecting wallet");
       }
     } else {
-      alert("Please install MetaMask to use this feature.");
+      toast.error("Please install MetaMask to use this feature.");
     }
   };
   useEffect(() => {
@@ -77,10 +85,7 @@ const ConnectWallet: React.FC = () => {
       // Create a new instance of Web3
       const web3 = new Web3(window.ethereum);
       // Create a new contract instance
-      const contract = new web3.eth.Contract(
-        ERC20_ABI as any,
-        ERC20_ADDRESS
-      );
+      const contract = new web3.eth.Contract(ERC20_ABI as any, ERC20_ADDRESS);
       setERC20Contract(contract);
     };
     const ConnectInsuranceContract = async () => {
@@ -101,15 +106,12 @@ const ConnectWallet: React.FC = () => {
     };
   }, [account]);
 
-  
-
   return (
     <>
       <button
         onClick={connectWallet}
         className="absolute top-0 right-0 m-4 p-2 bg-transparent border-2 border-gray-200 text-gray-200 font-bold rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm overflow-hidden group"
       >
-
         <span className="relative z-10">
           {isConnected ? "Wallet Connected" : "Connect Wallet"}
         </span>

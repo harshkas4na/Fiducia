@@ -1,20 +1,17 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaCoins } from "react-icons/fa";
 import WithdrawButton from "./WithdrawButton";
 import { useContract } from "../context/ContractContext";
 import { useUser } from "../context/UserContext";
 import Web3, { Numbers } from "web3";
-
-
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WithdrawFundsSection = () => {
-
-  const {WalletContract,ERC20Contract}=useContract();
+  const { WalletContract, ERC20Contract } = useContract();
   const [memeCoinsBalance, setMemeCoins] = useState<string>("");
-  const {account}=useUser();
-
+  const { account } = useUser();
 
   useEffect(() => {
     const fetchContractData = async () => {
@@ -25,57 +22,48 @@ const WithdrawFundsSection = () => {
 
       try {
         const web3 = new Web3(window.ethereum);
-        const memeCoinsBalance:Numbers = await ERC20Contract.methods.balanceOf(account).call();
+        const memeCoinsBalance: Numbers = await ERC20Contract.methods
+          .balanceOf(account)
+          .call();
         setMemeCoins(web3.utils.fromWei(memeCoinsBalance, "ether"));
-
       } catch (error) {
         console.error("Error fetching data from contract:", error);
-
-    }
-  
-  }
-  fetchContractData();
-    
-  }, [ERC20Contract,account]);
-  
+      }
+    };
+    fetchContractData();
+  }, [ERC20Contract, account]);
 
   const handleWithdraw = async () => {
     // Implement withdrawal logic here
-   
 
     try {
       // Connect to the Ethereum provider
       if (!window.ethereum) {
-        alert("Please install MetaMask or another Ethereum wallet.");
+        toast.error("Please install MetaMask or another Ethereum wallet.");
         return;
       }
 
       if (!account) {
-        alert("Please connect your Ethereum wallet.");
+        toast.error("Please connect your Ethereum wallet.");
         return;
       }
 
-      
       const web3 = new Web3(window.ethereum);
-
-      
-
 
       // Call the contribute function on the contract
       const tx = await WalletContract.methods.leaveShareholding().send({
-        from: account
+        from: account,
       });
 
       // Wait for the transaction receipt
       await web3.eth.getTransactionReceipt(tx.transactionHash);
 
-      alert("Contribution successful!");
+      toast.error("Contribution successful!");
     } catch (error) {
       console.error("Error contributing:", error);
-      alert("An error occurred while contributing.");
+      toast.error("An error occurred while contributing.");
     }
-     
-    }
+  };
 
   return (
     <div className="backdrop-blur-md bg-gray-800 bg-opacity-10 p-6 rounded-3xl shadow-lg w-full max-w-md mx-auto relative overflow-hidden">
