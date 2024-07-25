@@ -5,36 +5,6 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "asset",
 				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "priceFeed",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "maxCoverage",
-				"type": "uint256"
-			}
-		],
-		"name": "addSupportedAsset",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "checkAllPriceChanges",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "asset",
-				"type": "address"
 			}
 		],
 		"name": "checkPriceChange",
@@ -68,7 +38,7 @@ export const CryptoInsurance_ABI =[
 			},
 			{
 				"internalType": "uint256",
-				"name": "triggerPrice",
+				"name": "triggerPriceOrDropPercentage",
 				"type": "uint256"
 			}
 		],
@@ -79,18 +49,124 @@ export const CryptoInsurance_ABI =[
 	},
 	{
 		"inputs": [],
+		"name": "emergencyWithdraw",
+		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "grantRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pauseNewPolicies",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "callerConfirmation",
+				"type": "address"
+			}
+		],
+		"name": "renounceRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "revokeRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "owner",
+				"name": "_memeCoinAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_memeCoinsPerCheck",
+				"type": "uint256"
+			}
+		],
+		"name": "setMemeCoin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "OwnableInvalidOwner",
+		"name": "transferBalanceToPremiumVault",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "triggerPriceCheck",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_premiumVault",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "AccessControlBadConfirmation",
 		"type": "error"
 	},
 	{
@@ -99,10 +175,69 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "account",
 				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "neededRole",
+				"type": "bytes32"
 			}
 		],
-		"name": "OwnableUnauthorizedAccount",
+		"name": "AccessControlUnauthorizedAccount",
 		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "priceFeed",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "maxCoverage",
+				"type": "uint256"
+			}
+		],
+		"name": "addSupportedAsset",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "checkAllPriceChanges",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			}
+		],
+		"name": "checkAndProcessClaims",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -189,19 +324,13 @@ export const CryptoInsurance_ABI =[
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
+				"indexed": false,
 				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
+				"name": "account",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
+		"name": "Paused",
 		"type": "event"
 	},
 	{
@@ -241,6 +370,68 @@ export const CryptoInsurance_ABI =[
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			}
+		],
+		"name": "PolicyExpired",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [],
+		"name": "PremiumReceived",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "PremiumRefunded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "asset",
 				"type": "address"
 			},
@@ -261,49 +452,79 @@ export const CryptoInsurance_ABI =[
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "previousAdminRole",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "newAdminRole",
+				"type": "bytes32"
+			}
+		],
+		"name": "RoleAdminChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
 				"internalType": "address",
-				"name": "_memeCoinAddress",
+				"name": "account",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_memeCoinsPerCheck",
-				"type": "uint256"
-			}
-		],
-		"name": "setMemeCoin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
+				"indexed": true,
 				"internalType": "address",
-				"name": "newOwner",
+				"name": "sender",
 				"type": "address"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "RoleGranted",
+		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "triggerPriceCheck",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			}
+		],
+		"name": "RoleRevoked",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -312,8 +533,59 @@ export const CryptoInsurance_ABI =[
 		"type": "event"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Unpaused",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "unpauseNewPolicies",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			}
+		],
+		"name": "updateHighestPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "withdrawEther",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "asset",
+				"type": "address"
+			},
+			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			}
+		],
+		"name": "withdrawExpiredPolicy",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -330,6 +602,57 @@ export const CryptoInsurance_ABI =[
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "activePolicyHolders",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ADMIN_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allPolicyHolders",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -362,6 +685,30 @@ export const CryptoInsurance_ABI =[
 	{
 		"inputs": [
 			{
+				"internalType": "enum CryptoInsurance.InsuranceType",
+				"name": "insuranceType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "coverageAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "calculatePremium",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -388,6 +735,83 @@ export const CryptoInsurance_ABI =[
 				"internalType": "bool",
 				"name": "processed",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "DEFAULT_ADMIN_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getActiveHolders",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract AggregatorV3Interface",
+				"name": "priceFeed",
+				"type": "address"
+			}
+		],
+		"name": "getLatestPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			}
+		],
+		"name": "getRoleAdmin",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalCoverage",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -447,7 +871,17 @@ export const CryptoInsurance_ABI =[
 					},
 					{
 						"internalType": "uint256",
+						"name": "dropPercentage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
 						"name": "purchasePrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "highestPrice",
 						"type": "uint256"
 					},
 					{
@@ -465,8 +899,32 @@ export const CryptoInsurance_ABI =[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "hasRole",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
-		"name": "LastTriggerTimestamp",
+		"name": "lastTriggerTimestamp",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -537,12 +995,12 @@ export const CryptoInsurance_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "owner",
+		"name": "paused",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "bool",
 				"name": "",
-				"type": "address"
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -605,7 +1063,17 @@ export const CryptoInsurance_ABI =[
 			},
 			{
 				"internalType": "uint256",
+				"name": "dropPercentage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "purchasePrice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "highestPrice",
 				"type": "uint256"
 			},
 			{
@@ -632,7 +1100,20 @@ export const CryptoInsurance_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "SUDDEN_DROP_PREMIUM_RATE",
+		"name": "premiumVault",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PRICE_FEED_STALE_THRESHOLD",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -645,7 +1126,7 @@ export const CryptoInsurance_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "SUDDEN_DROP_THRESHOLD",
+		"name": "SUDDEN_DROP_PREMIUM_RATE",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -688,6 +1169,11 @@ export const CryptoInsurance_ABI =[
 				"internalType": "uint256",
 				"name": "maxCoverage",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "totalCoverage",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -707,6 +1193,25 @@ export const CryptoInsurance_ABI =[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

@@ -1,8 +1,35 @@
 export const MultiPartyWallet_ABI =[
 	{
 		"inputs": [],
+		"name": "closeWallet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "contribute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "ContributionTooLowError",
 		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "distributeAllFunds",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -143,6 +170,34 @@ export const MultiPartyWallet_ABI =[
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_minimumContribution",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_closureTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_memeCoinAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_memeCoinsPerEth",
+				"type": "uint256"
+			}
+		],
+		"name": "initialize",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -154,6 +209,13 @@ export const MultiPartyWallet_ABI =[
 		],
 		"name": "Initialized",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "leaveShareholding",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -207,6 +269,13 @@ export const MultiPartyWallet_ABI =[
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -218,6 +287,57 @@ export const MultiPartyWallet_ABI =[
 		],
 		"name": "Paused",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_newClosureTime",
+				"type": "uint256"
+			}
+		],
+		"name": "setClosureTime",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_memeCoinAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_memeCoinsPerEth",
+				"type": "uint256"
+			}
+		],
+		"name": "setMemeCoin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_newMinimum",
+				"type": "uint256"
+			}
+		],
+		"name": "setMinimumContribution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -270,6 +390,26 @@ export const MultiPartyWallet_ABI =[
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "unpause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -293,6 +433,23 @@ export const MultiPartyWallet_ABI =[
 		"type": "fallback"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "updateShares",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
 		"inputs": [],
 		"name": "additionalFunds",
 		"outputs": [
@@ -303,13 +460,6 @@ export const MultiPartyWallet_ABI =[
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "closeWallet",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -327,13 +477,6 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "contribute",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "creationTime",
 		"outputs": [
 			{
@@ -343,48 +486,6 @@ export const MultiPartyWallet_ABI =[
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "distributeAllFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_minimumContribution",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_closureTime",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_memeCoinAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_memeCoinsPerEth",
-				"type": "uint256"
-			}
-		],
-		"name": "initialize",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "leaveShareholding",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -441,13 +542,6 @@ export const MultiPartyWallet_ABI =[
 	},
 	{
 		"inputs": [],
-		"name": "pause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "paused",
 		"outputs": [
 			{
@@ -457,57 +551,6 @@ export const MultiPartyWallet_ABI =[
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_newClosureTime",
-				"type": "uint256"
-			}
-		],
-		"name": "setClosureTime",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_memeCoinAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_memeCoinsPerEth",
-				"type": "uint256"
-			}
-		],
-		"name": "setMemeCoin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_newMinimum",
-				"type": "uint256"
-			}
-		],
-		"name": "setMinimumContribution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -586,33 +629,6 @@ export const MultiPartyWallet_ABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "unpause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "updateShares",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "walletClosed",
 		"outputs": [
@@ -624,9 +640,5 @@ export const MultiPartyWallet_ABI =[
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]
