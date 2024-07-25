@@ -25,7 +25,22 @@ const CreatePolicyForm: React.FC = () => {
   const [selectedType, setSelectedType] = useState("");
   const [coverageAmount, setCoverageAmount] = useState("");
   const [triggerPrice, setTriggerPrice] = useState("");
+  const [dropPercentage, setDropPercentage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const getPremiumRate = (insuranceType: string) => {
+    switch (insuranceType) {
+      case "0": return 1000; // LOAN_PREMIUM_RATE
+      case "1": return 1500; // THRESHOLD_PREMIUM_RATE
+      case "2": return 2000; // SUDDEN_DROP_PREMIUM_RATE
+      default: throw new Error("Invalid insurance type");
+    }
+  };
+
+  const calculatePremium = (insuranceType: string, coverageAmount: string) => {
+    const rate = getPremiumRate(insuranceType);
+    return (new BN(coverageAmount).mul(new BN(rate))).div(new BN(10000));
+  };
 
   const handleCreatePolicy = async () => {
     if (!window.ethereum || !InsuranceContract) {
@@ -43,63 +58,36 @@ const CreatePolicyForm: React.FC = () => {
       const assetAddress = getAssetAddress(selectedAsset);
       const coverageAmountWei = web3.utils.toWei(coverageAmount, "ether");
 
-      // Calculate premium based on the insurance type
-      const coverageAmountBN = new BN(coverageAmountWei);
-      let premiumRate;
+      const premiumWei = calculatePremium(selectedType, coverageAmountWei).toString();
 
-      switch (selectedType) {
-        case "0": // LOAN
-          premiumRate = await InsuranceContract.methods
-            .LOAN_PREMIUM_RATE()
-            .call();
-          break;
-        case "1": // THRESHOLD
-          premiumRate = await InsuranceContract.methods
-            .THRESHOLD_PREMIUM_RATE()
-            .call();
-          break;
-        case "2": // SUDDEN_DROP
-          premiumRate = await InsuranceContract.methods
-            .SUDDEN_DROP_PREMIUM_RATE()
-            .call();
-          break;
-        default:
-          throw new Error("Invalid insurance type");
-      }
-
-      const premiumBN = coverageAmountBN
-        .mul(new BN(premiumRate))
-        .div(new BN(10000));
-      const premiumWei = premiumBN.toString();
+      const triggerPriceOrDropPercentage = selectedType === "2" ? dropPercentage : triggerPrice;
 
       const transaction = await InsuranceContract.methods
         .createPolicy(
           assetAddress,
           selectedType,
           coverageAmountWei,
-          triggerPrice
+          triggerPriceOrDropPercentage
         )
         .send({
           from: account,
           value: premiumWei,
         });
-        toast.success("Policy created successfully!");
-      // Reset form
+      toast.success("Policy created successfully!");
     } catch (error) {
       console.error("Error creating policy:", error);
-
       toast.error("Failed to create policy. Check console for details.");
     } finally {
       setSelectedAsset("");
       setSelectedType("");
       setCoverageAmount("");
       setTriggerPrice("");
+      setDropPercentage("");
       setLoading(false);
     }
   };
 
   const getAssetAddress = (asset: string) => {
-    // Replace these with actual asset addresses from your contract
     const assetAddresses: { [key: string]: string } = {
       ETH: "0x1234567890123456789012345678901234567890",
       BTC: "0x0987654321098765432109876543210987654321",
@@ -180,13 +168,27 @@ const CreatePolicyForm: React.FC = () => {
             ETH
           </span>
         </div>
-        <input
-          type="number"
-          value={triggerPrice}
-          onChange={(e) => setTriggerPrice(e.target.value)}
-          placeholder="Trigger Price"
-          className="w-full bg-gray-700 bg-opacity-20 text-white px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-        />
+        {selectedType !== "2" && (
+          <input
+            type="number"
+            value={triggerPrice}
+            onChange={(e) => setTriggerPrice(e.target.value)}
+            placeholder="Trigger Price"
+            className="w-full bg-gray-700 bg-opacity-20 text-white px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+          />
+        )}
+        {selectedType === "2" && (
+          <input
+            type="number"
+            value={dropPercentage}
+            onChange={(e) => setDropPercentage(e.target.value)}
+            placeholder="Drop Percentage (1-100)"
+            className="w-full bg-gray-700 bg-opacity-20 text-white px-3 py-2 rounded-lg mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+          />
+        )}
+        <p className="text-sm text-gray-400 mb-3">
+          Policy Duration: 30 days
+        </p>
         <div className="flex justify-center">
           <button
             onClick={handleCreatePolicy}
