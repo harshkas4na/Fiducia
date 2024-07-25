@@ -38,7 +38,7 @@ const WithdrawFundsSection = () => {
 
     try {
       // Connect to the Ethereum provider
-      if (!window.ethereum) {
+      if (true) {
         toast.error("Please install MetaMask or another Ethereum wallet.");
         return;
       }
@@ -58,10 +58,10 @@ const WithdrawFundsSection = () => {
       // Wait for the transaction receipt
       await web3.eth.getTransactionReceipt(tx.transactionHash);
 
-      toast.error("Contribution successful!");
+      toast.success("Withdrawing successful!");
     } catch (error) {
       console.error("Error contributing:", error);
-      toast.error("An error occurred while contributing.");
+      toast.error("An error occurred while Withdrawing.");
     }
   };
 

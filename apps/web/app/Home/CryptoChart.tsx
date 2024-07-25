@@ -89,7 +89,7 @@ interface ChartProps {
 
 const CryptoChart: React.FC<ChartProps> = ({setBitcoinPrice,setEthPrice}:ChartProps) => {
 
-  // const {InsuranceContract,ERC20Contract}=useContract();
+  const {InsuranceContract,ERC20Contract}=useContract();
 
 
   const [chartData, setChartData] = useState<any>({
@@ -178,12 +178,12 @@ const CryptoChart: React.FC<ChartProps> = ({setBitcoinPrice,setEthPrice}:ChartPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useCallback(
-  //   () => {
-  //     updateCurrentPrices
-  //   },
-  //   [chartData],
-  // )
+  useCallback(
+    () => {
+      updateCurrentPrices
+    },
+    [chartData],
+  )
   
   updateCurrentPrices();
   

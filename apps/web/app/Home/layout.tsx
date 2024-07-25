@@ -3,6 +3,10 @@
 import Spline from "@splinetool/react-spline/next";
 import ConnectWallet from "../components/connectWallet";
 import Sidebar from "../components/Sidebar";
+import { ToastContainer } from 'react-toastify';
+
+// In your JSX, near the root level:
+
 
 export default function HomeLayout({
   children,
@@ -25,6 +29,17 @@ export default function HomeLayout({
       <ConnectWallet/>
         {children}
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useContract } from "../context/ContractContext";
 import Web3 from "web3";
 import { useUser } from "../context/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Timer: React.FC = () => {
   const [closureTime, setClosureTime] = useState<number>(0);
@@ -29,6 +31,7 @@ const Timer: React.FC = () => {
       // Wait for the transaction receipt
       await web3.eth.getTransactionReceipt(tx.transactionHash);
       
+      toast.success("Wallet closed successfully!");
       
     } catch (error) {
       console.error("Error closing wallet:", error);

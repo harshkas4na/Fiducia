@@ -83,7 +83,7 @@ const CreatePolicyForm: React.FC = () => {
           from: account,
           value: premiumWei,
         });
-
+        toast.success("Policy created successfully!");
       // Reset form
     } catch (error) {
       console.error("Error creating policy:", error);

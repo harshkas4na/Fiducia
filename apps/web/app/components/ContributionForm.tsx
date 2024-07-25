@@ -53,7 +53,7 @@ const ContributionForm: React.FC<ContributionFormProps> = ({
       // Wait for the transaction receipt
       await web3.eth.getTransactionReceipt(tx.transactionHash);
 
-      toast.error("Contribution successful!");
+      toast.success("Contribution successful!");
     } catch (error) {
       console.error("Error contributing:", error);
       toast.error("An error occurred while contributing.");

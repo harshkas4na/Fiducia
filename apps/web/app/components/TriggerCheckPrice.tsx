@@ -92,7 +92,7 @@ const TriggerCheckPrice: React.FC = () => {
         .send({
           from: account,
         });
-      toast.error(
+      toast.success(
         `Price check triggered successfully! You've earned a reward.`
       );
 
@@ -128,7 +128,7 @@ const TriggerCheckPrice: React.FC = () => {
           from: account,
         });
       if (transaction.status === true) {
-        toast.error(`Reward claimed successfully!`);
+        toast.success(`Reward claimed successfully!`);
       } else {
         toast.error(`Contract doesn't have enough Balance!`);
       }
