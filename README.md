@@ -1,81 +1,93 @@
-# Turborepo starter
+# Fiducia: Revolutionizing Decentralized Finance
 
-This is an official starter Turborepo.
+### Frontend Video : 
+- https://youtu.be/xlrv_E41LFM
 
-## Using this example
+### Deployed Link : 
+- https://fiducia-web.vercel.app/Home
 
-Run the following command:
+### Github repo-link : 
+- https://github.com/harshkas4na/Fiducia
 
-```sh
-npx create-turbo@latest
-```
+## About Us
 
-## What's inside?
+Fiducia is a groundbreaking DApp that combines intelligent fund splitting with robust crypto insurance, redefining trust and collaboration in the decentralized finance landscape. Our platform offers innovative solutions for collaborative investing and risk management in the crypto space.
 
-This Turborepo includes the following packages/apps:
+## Key Features
 
-### Apps and Packages
+1. Multi-Party Wallet for Collaborative Investing
+2. Crypto Insurance Shield
+3. MemeCoin Rewards System
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## How Fiducia Works
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Multi-Party Wallet
 
-### Utilities
+1. Users contribute Ether to become shareholders in the Multi-Party Wallet.
+2. Contributions grant voting rights proportional to the investment.
+3. The wallet features:
+   - Minimum contribution requirement
+   - Closure time
+   - Fair distribution of additional funds
 
-This Turborepo has some additional tools already setup for you:
+### Crypto Insurance
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1. Users can purchase insurance policies for various scenarios:
+   - Loan protection
+   - Threshold-based coverage
+   - Sudden price drop insurance
+2. Smart contracts automatically process claims when trigger conditions are met.
 
-### Build
+### MemeCoin Rewards
 
-To build all apps and packages, run the following command:
+- Shareholders earn MemeCoin rewards based on their contributions.
 
-```
-cd my-turborepo
-pnpm build
-```
+## The Fiducia Ecosystem
 
-### Develop
+Fiducia operates on a unique model that combines collaborative investing with crypto insurance:
 
-To develop all apps and packages, run the following command:
+1. Users contribute Ether to become shareholders in the Multi-Party Wallet.
+2. Shareholders can purchase insurance policies to protect their crypto assets.
+3. Policy premiums are sent to the Multi-Party Wallet.
+4. Premiums are distributed proportionally among shareholders based on their shares.
 
-```
-cd my-turborepo
-pnpm dev
-```
+### Insurance Policy Premium Rates
 
-### Remote Caching
+- Loan Protection: 10% premium rate
+- Threshold-based Coverage: 15% premium rate
+- Sudden Drop Protection: 20% premium rate
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Advanced Features and Functionality
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+### Smart Contract Automation
 
-```
-cd my-turborepo
-npx turbo login
-```
+1. Policy Creation: Users can create insurance policies based on their needs.
+2. Event Triggering: Policies trigger events when specific conditions are met.
+3. Open Activation: Any user can trigger a policy when conditions are satisfied.
+4. Automatic Distribution: Reactive smart contracts automatically distribute claim rewards.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Reactive Smart Contrats Involvement
+1. On Closing the Wallet ShareHolders will be calculated by reactive contract.
+2. On Withdrawing shareholding Shareholders will be recalulated by reactive smart contract.
+3. On buying any policy the premiums will be sent to WalletContract by reactive contract, which will then distributed to all shareholders.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Reward Distribution
 
-```
-npx turbo link
-```
+1. The triggering wallet receives the initial payout.
+2. Funds are automatically distributed to shareholders proportionally.
+3. This system ensures fair and immediate distribution of insurance payouts.
 
-## Useful Links
+## Important Note on Live Demonstrations
 
-Learn more about the power of Turborepo:
+While our system has been thoroughly tested, please note that during live demonstrations, the timing of insurance returns may not align perfectly with market trends. This is due to the unpredictable nature of real-time market fluctuations, which cannot be humanly timed for demonstration purposes.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Our Team
+
+Fiducia is brought to you by a dedicated team of professionals:
+
+- Prakhar Srivastava: Co-founder & Developer
+- Harsh Kasana: Co-founder & Developer
+
+## Conclusion
+
+Whether you're an individual investor looking to diversify risk or a group seeking to pool resources for larger opportunities, Fiducia provides the advanced tools and infrastructure needed to navigate the decentralized finance landscape with confidence and precision. Join us in revolutionizing the way we approach collaborative investing and crypto asset protection.
